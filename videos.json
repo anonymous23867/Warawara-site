@@ -1,13 +1,13 @@
 [
-  {
-    "id": 1,
-    "title": "重慶でのジッパー事故",
-    "channel": "わらわらサイト",
-    "views": "1回視聴",
-    "date": "2026/05/06",
-    "duration": "動画",
-    "thumbnail": "images/logo.png",
-    "icon": "images/logo.png",
-    "video": "https://drive.google.com/file/d/1Rfkety9LB10HDxCWzQdSqwT1sCuElQb3/preview"
-  }
+  {
+    "id": 1,
+    "title": "重慶でのジッパー事故",
+    "description": "ジップライン事故に関する動画です。",
+    "views": "1回視聴",
+    "date": "2026/05/06",
+    "duration": "動画",
+    "thumbnail": "images/logo.png",
+    "icon": "images/logo.png",
+    "video": "https://drive.google.com/file/d/1Rfkety9LB10HDxCWzQdSqwT1sCuElQb3/preview"
+  }
 ]
