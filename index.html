@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>わらわらサイト</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- ヘッダー -->
+  <header class="site-header">
+
+    <img src="images/logo.PNG" class="site-logo" alt="ロゴ">
+
+    <h1 class="site-title">わらわらサイト</h1>
+
+  </header>
+
+  <!-- 動画一覧 -->
+  <main id="video-list"></main>
+
+  <script>
+
+    fetch("videos.json")
+      .then(res => res.json())
+      .then(videos => {
+
+        const container = document.getElementById("video-list");
+
+        videos.forEach(video => {
+
+          const card = document.createElement("a");
+
+          card.className = "video-card";
+
+          card.href = video.video;
+
+          card.target = "_blank";
+
+          card.innerHTML = `
+
+            <div class="thumbnail-wrap">
+
+              <img src="${video.thumbnail}" class="thumbnail">
+
+            </div>
+
+            <div class="video-info">
+
+              <img src="${video.icon}" class="channel-icon">
+
+              <div class="video-text">
+
+                <div class="video-title">
+                  ${video.title}
+                </div>
+
+                <div class="video-description">
+                  ${video.description}
+                </div>
+
+                <div class="video-meta">
+                  ${video.views} ・ ${video.date}
+                </div>
+
+              </div>
+
+            </div>
+
+          `;
+
+          container.appendChild(card);
+
+        });
+
+      });
+
+  </script>
+
+</body>
+
+</html>
