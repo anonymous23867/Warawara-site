@@ -4,19 +4,30 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- 検索結果の青いタイトル -->
   <title>わらわらサイト</title>
+
+  <!-- Google検索に表示される説明文 -->
+  <meta name="description"
+    content="広告無しでストレスフリーに閲覧できるグロ動画サイト。私が興味を持ったなど様々なグロを掲載しています。">
+
+  <!-- 検索結果やタブに表示されるロゴ -->
+  <link rel="icon" href="images/favicon.png" type="image/png">
+
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
   <header class="site-header">
+
     <a href="about.html">
       <img src="images/dange.png" class="site-logo" alt="説明ページ">
     </a>
 
-  
-    <h1 class="site-title">わらわらサイト</h1>
+    <h1 class="site-title">⬅️わらわらサイトについて</h1>
+
   </header>
 
   <main id="video-list"></main>
@@ -27,20 +38,25 @@
     fetch("videos.json")
       .then(res => res.json())
       .then(videos => {
+
         const container = document.getElementById("video-list");
         const pagination = document.getElementById("pagination");
+
         const videosPerPage = 10;
         let currentPage = 1;
 
         function showPage(page) {
+
           container.innerHTML = "";
           pagination.innerHTML = "";
 
           const start = (page - 1) * videosPerPage;
           const end = start + videosPerPage;
+
           const pageVideos = videos.slice(start, end);
 
           pageVideos.forEach(video => {
+
             const card = document.createElement("a");
 
             card.className = "video-card";
@@ -53,23 +69,38 @@
               </div>
 
               <div class="video-info">
-                <img src="${video.icon}" class="channel-icon" alt="アイコン">
+
+               
 
                 <div class="video-text">
-                  <div class="video-title">${video.title}</div>
-                  <div class="video-description">${video.description}</div>
-                  <div class="video-meta">${video.views} ・ ${video.date}</div>
+
+                  <div class="video-title">
+                    ${video.title}
+                  </div>
+
+                  <div class="video-description">
+                    ${video.description}
+                  </div>
+
+                  <div class="video-meta">
+                    ${video.views} ・ ${video.date}
+                  </div>
+
                 </div>
+
               </div>
             `;
 
             container.appendChild(card);
+
           });
 
           const totalPages = Math.ceil(videos.length / videosPerPage);
 
           for (let i = 1; i <= totalPages; i++) {
+
             const button = document.createElement("button");
+
             button.textContent = i;
 
             if (i === page) {
@@ -77,16 +108,23 @@
             }
 
             button.addEventListener("click", () => {
+
               currentPage = i;
+
               showPage(currentPage);
+
               window.scrollTo(0, 0);
+
             });
 
             pagination.appendChild(button);
+
           }
+
         }
 
         showPage(currentPage);
+
       });
   </script>
 
