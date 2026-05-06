@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>説明 - わらわらサイト</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ヘッダー全体を中央に寄せ、中身を横並びにする */
+    .site-header {
+      display: flex;
+      align-items: center;    /* 上下中央 */
+      justify-content: center; /* 左右中央 */
+      padding: 50px 20px;     /* 上下の余白を広めにとる */
+      gap: 25px;              /* ロゴと文字の間の距離 */
+    }
+
+    /* ロゴを2回り大きく */
+    .site-logo {
+      width: 140px;           /* 元のサイズに合わせて調整してください */
+      height: auto;
+      display: block;
+    }
+
+    /* タイトルを2回り大きく */
+    .site-title {
+      font-size: 3.5rem;      /* かなり存在感のあるサイズ */
+      margin: 0;
+      white-space: nowrap;    /* 改行を防ぐ */
+    }
+
+    /* 説明欄のスタイル */
+    .about-container {
+      padding: 40px 20px;
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .about-section {
+      margin-top: 20px;
+      margin-bottom: 60px;
+    }
+
+    .about-title {
+      font-size: 1.8rem;
+      font-weight: bold;
+      margin-bottom: 20px;
+      border-bottom: 2px solid #eee;
+      display: inline-block;
+      padding-bottom: 5px;
+    }
+
+    .about-text {
+      font-size: 1.2rem;
+      line-height: 2;
+      color: #333;
+    }
+
+    /* 戻るボタンのスタイル */
+    .back-button-wrap {
+      margin-top: 50px;
+      text-align: center;
+    }
+
+    .back-button {
+      display: inline-block;
+      padding: 15px 40px;
+      background-color: #333;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 30px; /* 少し丸みをもたせてモダンに */
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .back-button:hover {
+      background-color: #555;
+      transform: translateY(-2px); /* 浮き上がる演出 */
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <img src="images/logo.png" class="site-logo" alt="ロゴ">
+    <h1 class="site-title">わらわらサイト</h1>
+  </header>
+
+  <main class="about-container">
+    
+    <section class="about-section">
+      <div class="about-title">サイト紹介</div>
+      <p class="about-text">
+        わらわらサイトへようこそ。<br>
+       当サイト最大の特徴は、広告を一切掲載していないことです。
+近年、多くの大手グロ動画サイトでは広告が非常に多く、悪質なバナー広告などによって、快適に動画を閲覧することが難しい状況になっていると感じています。
+そのため私は、「広告なしで、ストレスなく閲覧できるサイトを作りたい」という思いから、このサイトを開設しました。
+初めてのサイト運営ということもあり、まだ分からないことばかりですが、少しずつ改善を重ねながら、より良いサイトを目指していきたいと思っています。<br>
+これからよろしくお願いいたします。<br>
+ 
+        　2026年５月７日
+      </p>
+    </section>
+
+  <!-- Twitterリンク -->
+<div class="twitter-wrap">
+  <a href="https://x.com/warawara235?s=21" target="_blank" class="twitter-link">
+    Twitterはこちら @warrawara235
+  </a>
+</div>
+
+    <div class="back-button-wrap">
+      <a href="index.html" class="back-button">トップページに戻る</a>
+    </div>
+
+  </main>
+
+</body>
+</html>
+
+

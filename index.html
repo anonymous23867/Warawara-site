@@ -12,17 +12,19 @@
 
 <body>
 
-  <!-- ヘッダー -->
   <header class="site-header">
 
-    <img src="images/logo.PNG" class="site-logo" alt="ロゴ">
+    <a href="about.html">
+      <img src="images/dange.png" class="site-logo" alt="ロゴ">
+    </a>
 
     <h1 class="site-title">わらわらサイト</h1>
 
   </header>
 
-  <!-- 動画一覧 -->
   <main id="video-list"></main>
+
+  <div id="pagination"></div>
 
   <script>
 
@@ -31,52 +33,84 @@
       .then(videos => {
 
         const container = document.getElementById("video-list");
+        const pagination = document.getElementById("pagination");
 
-        videos.forEach(video => {
+        const videosPerPage = 10;
+        let currentPage = 1;
 
-          const card = document.createElement("a");
+        function showPage(page) {
+          container.innerHTML = "";
+          pagination.innerHTML = "";
 
-          card.className = "video-card";
+          const start = (page - 1) * videosPerPage;
+          const end = start + videosPerPage;
+          const pageVideos = videos.slice(start, end);
 
-          card.href = video.video;
+          pageVideos.forEach(video => {
 
-          card.target = "_blank";
+            const card = document.createElement("a");
 
-          card.innerHTML = `
+            card.className = "video-card";
+            card.href = video.video;
+            card.target = "_blank";
 
-            <div class="thumbnail-wrap">
+            card.innerHTML = `
 
-              <img src="${video.thumbnail}" class="thumbnail">
+              <div class="thumbnail-wrap">
 
-            </div>
+                <img src="${video.thumbnail}" class="thumbnail">
 
-            <div class="video-info">
+              </div>
 
-              <img src="${video.icon}" class="channel-icon">
+              <div class="video-info">
 
-              <div class="video-text">
+                <img src="${video.icon}" class="channel-icon">
 
-                <div class="video-title">
-                  ${video.title}
-                </div>
+                <div class="video-text">
 
-                <div class="video-description">
-                  ${video.description}
-                </div>
+                  <div class="video-title">
+                    ${video.title}
+                  </div>
 
-                <div class="video-meta">
-                  ${video.views} ・ ${video.date}
+                  <div class="video-description">
+                    ${video.description}
+                  </div>
+
+                  <div class="video-meta">
+                    ${video.views} ・ ${video.date}
+                  </div>
+
                 </div>
 
               </div>
 
-            </div>
+            `;
 
-          `;
+            container.appendChild(card);
 
-          container.appendChild(card);
+          });
 
-        });
+          const totalPages = Math.ceil(videos.length / videosPerPage);
+
+          for (let i = 1; i <= totalPages; i++) {
+            const button = document.createElement("button");
+            button.textContent = i;
+
+            if (i === page) {
+              button.style.fontWeight = "bold";
+            }
+
+            button.addEventListener("click", () => {
+              currentPage = i;
+              showPage(currentPage);
+              window.scrollTo(0, 0);
+            });
+
+            pagination.appendChild(button);
+          }
+        }
+
+        showPage(currentPage);
 
       });
 

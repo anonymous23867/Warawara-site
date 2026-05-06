@@ -13,26 +13,38 @@ body {
 
 .site-header {
   height: 70px;
+
   display: flex;
   align-items: center;
+
   padding: 0 18px;
+
   background: white;
+
   border-bottom: 1px solid #eee;
+
   position: sticky;
+
   top: 0;
+
   z-index: 10;
 }
 
 .site-logo {
   height: 42px;
+
   width: auto;
+
   object-fit: contain;
 }
 
 .site-title {
   margin-left: 12px;
+
   font-size: 24px;
+
   font-weight: bold;
+
   color: #111;
 }
 
@@ -46,9 +58,13 @@ body {
 
 .video-card {
   display: block;
+
   text-decoration: none;
+
   color: inherit;
+
   margin-bottom: 28px;
+
   background: white;
 }
 
@@ -56,54 +72,128 @@ body {
 
 .thumbnail-wrap {
   position: relative;
+
   width: 100%;
 }
 
 .thumbnail {
   width: 100%;
+
   aspect-ratio: 16 / 9;
+
   object-fit: cover;
-  background: #ddd;
+
   display: block;
+}
+
+/* 動画時間 */
+
+.duration {
+  position: absolute;
+
+  right: 8px;
+
+  bottom: 8px;
+
+  background: rgba(0, 0, 0, 0.85);
+
+  color: white;
+
+  font-size: 14px;
+
+  padding: 4px 6px;
+
+  border-radius: 4px;
 }
 
 /* 動画情報 */
 
-.video-info {
+.video-detail {
   display: flex;
-  align-items: flex-start;
-  padding: 12px;
+
+  padding: 12px 12px 0;
+
+  gap: 12px;
 }
+
+/* アイコン */
 
 .channel-icon {
   width: 42px;
+
   height: 42px;
+
   border-radius: 50%;
+
   object-fit: cover;
-  margin-right: 12px;
+
+  flex-shrink: 0;
 }
+
+/* テキスト */
 
 .video-text {
   flex: 1;
+
+  min-width: 0;
 }
 
-.video-title {
-  margin: 0;
-  font-size: 17px;
-  line-height: 1.4;
+.video-text h2 {
+  margin: 0 0 6px;
+
+  font-size: 18px;
+
+  line-height: 1.35;
+
   font-weight: bold;
 }
 
-.video-description {
-  margin-top: 6px;
-  color: #333;
+.video-text p {
+  margin: 0;
+
+  color: #666;
+
   font-size: 14px;
-  line-height: 1.5;
-  white-space: pre-line;
+
+  line-height: 1.4;
 }
 
-.video-meta {
-  margin-top: 6px;
-  color: #666;
-  font-size: 13px;
+/* ︙ */
+
+.menu {
+  font-size: 24px;
+
+  color: #111;
+}
+
+/* ページ番号 */
+
+#pagination {
+  margin: 35px 0;
+
+  text-align: center;
+}
+
+#pagination button {
+  margin: 5px;
+
+  padding: 10px 15px;
+
+  border: none;
+
+  cursor: pointer;
+
+  background: #eee;
+
+  border-radius: 6px;
+
+  font-size: 16px;
+}
+
+#pagination button.active {
+  background: #111;
+
+  color: white;
+
+  font-weight: bold;
 }
