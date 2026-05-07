@@ -2,92 +2,100 @@
 <html lang="ja">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>わらわらサイト</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>わらわらサイト</title>
+  <link rel="icon" href="images/favicon.png" type="image/png">
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-  <header class="site-header">
-    <div class="menu-button" id="menuButton">☰</div>
+  <header class="site-header">
+    <button class="menu-button" id="menuButton" type="button">☰</button>
 
-    <div class="header-center">
-      <img src="images/logo.png" class="site-logo" alt="ロゴ">
-      <div class="site-title">わらわらサイト</div>
-    </div>
-  </header>
+    <div class="header-center">
+      <img src="images/logo.png" class="site-logo" alt="ロゴ">
+      <div class="site-title">わらわらサイト</div>
+    </div>
+  </header>
 
-  <nav class="side-menu" id="sideMenu">
-    <a href="about.html" class="menu-link about-link">このサイトについて</a>
+  <nav class="side-menu" id="sideMenu">
+    <a href="about.html" class="menu-link about-link">このサイトについて</a>
 
-    <div class="menu-space"></div>
+    <div class="menu-space"></div>
 
-    <a href="index.html" class="menu-link">全て</a>
-    <a href="#" class="menu-link">事故</a>
-    <a href="#" class="menu-link">動物</a>
-    <a href="#" class="menu-link">管理人おすすめ</a>
-    <a href="#" class="menu-link">本日の一品</a>
-    <a href="visitors.html" class="menu-link">訪問者数</a>
-  </nav>
+    <a href="index.html" class="menu-link">全て</a>
+    <a href="#" class="menu-link">事故</a>
+    <a href="#" class="menu-link">動物</a>
+    <a href="#" class="menu-link">管理人おすすめ</a>
+    <a href="#" class="menu-link">本日の一品</a>
+    <a href="visitors.html" class="menu-link">
+  来訪者数
+</a>
 
-  <div class="menu-overlay" id="menuOverlay"></div>
+  </nav>
 
-  <main id="video-list"></main>
+  <div class="menu-overlay" id="menuOverlay"></div>
 
-  <script>
-    const menuButton = document.getElementById("menuButton");
-    const sideMenu = document.getElementById("sideMenu");
-    const menuOverlay = document.getElementById("menuOverlay");
+  <main id="video-list" class="video-list"></main>
 
-    menuButton.addEventListener("click", () => {
-      sideMenu.classList.toggle("active");
-      menuOverlay.classList.toggle("active");
+  <script>
+    const menuButton = document.getElementById("menuButton");
+    const sideMenu = document.getElementById("sideMenu");
+    const menuOverlay = document.getElementById("menuOverlay");
+
+    menuButton.addEventListener("click", function () {
+      sideMenu.classList.add("open");
+      menuOverlay.classList.add("show");
+    });
+
+    menuOverlay.addEventListener("click", function () {
+      sideMenu.classList.remove("open");
+      menuOverlay.classList.remove("show");
+    });
+
+    fetch("videos.json")
+      .then(response => response.json())
+      .then(videos => {
+        const videoList = document.getElementById("video-list");
+
+        videos.forEach(video => {
+          const card = document.createElement("article");
+          card.className = "video-card";
+
+          card.innerHTML = `
+            <a href="${video.video}" class="thumbnail-link" target="_blank">
+              <img src="${video.thumbnail}" class="thumbnail" alt="${video.title}">
+            </a>
+
+            <div class="video-info">
+              <img src="${video.icon}" class="channel-icon" alt="アイコン">
+
+              <div class="video-text">
+                <div class="video-title">${video.title}</div>
+                <div class="video-description">${video.description}</div>
+                <div class="video-meta">${video.views} ・ ${video.date}</div>
+              </div>
+            </div>
+          `;
+
+          videoList.appendChild(card);
+        });
+      });
+  </script>
+
+  <script>
+
+  /* 来訪者カウント */
+
+  fetch("https://api.countapi.xyz/hit/warawara-site/home")
+    .then(response => response.json())
+    .then(data => {
+      console.log("来訪者数", data.value);
     });
 
-    menuOverlay.addEventListener("click", () => {
-      sideMenu.classList.remove("active");
-      menuOverlay.classList.remove("active");
-    });
-
-    fetch("videos.json")
-      .then(res => res.json())
-      .then(videos => {
-        const container = document.getElementById("video-list");
-
-        videos.forEach(video => {
-          const card = document.createElement("a");
-          card.className = "video-card";
-          card.href = video.video;
-          card.target = "_blank";
-
-          card.innerHTML = `
-            <img src="${video.thumbnail}" class="thumbnail" alt="${video.title}">
-
-            <div class="video-info">
-              <div class="video-title">${video.title}</div>
-              <div class="video-meta">
-                <span id="views-${video.id}">読み込み中</span>・${video.date}
-              </div>
-            </div>
-          `;
-
-          container.appendChild(card);
-
-          fetch(`https://api.countapi.xyz/hit/warawara-site/video-${video.id}`)
-            .then(res => res.json())
-            .then(data => {
-              document.getElementById(`views-${video.id}`).textContent =
-                `${data.value}回視聴`;
-            })
-            .catch(() => {
-              document.getElementById(`views-${video.id}`).textContent =
-                `0回視聴`;
-            });
-        });
-      });
-  </script>
+</script>
 
 </body>
 
