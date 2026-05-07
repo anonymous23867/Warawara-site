@@ -4,7 +4,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>わらわらサイト</title>
 
   <link rel="icon" href="images/favicon.png" type="image/png">
@@ -14,7 +13,6 @@
 <body>
 
   <header class="site-header">
-
     <button class="menu-button" id="menuButton" type="button">
       ☰
     </button>
@@ -26,7 +24,6 @@
         わらわらサイト
       </div>
     </div>
-
   </header>
 
   <nav class="side-menu" id="sideMenu">
@@ -79,6 +76,7 @@
     const pagination = document.getElementById("pagination");
 
     let allVideos = [];
+
     let currentCategory = "all";
     let currentPage = 1;
 
@@ -113,8 +111,11 @@
 
       const filteredVideos = getFilteredVideos();
 
-      const startIndex = (currentPage - 1) * videosPerPage;
-      const endIndex = startIndex + videosPerPage;
+      const startIndex =
+        (currentPage - 1) * videosPerPage;
+
+      const endIndex =
+        startIndex + videosPerPage;
 
       const videosToShow =
         filteredVideos.slice(startIndex, endIndex);
@@ -126,14 +127,13 @@
         card.className = "video-card";
 
         card.innerHTML = `
-          <a href="${video.video}" class="thumbnail-link" target="_blank">
+          <a href="${video.video}"
+             class="thumbnail-link"
+             target="_blank">
 
-            <img
-              src="${video.thumbnail}"
-              class="thumbnail"
-              alt="${video.title}"
-            >
-
+            <img src="${video.thumbnail}"
+                 class="thumbnail"
+                 alt="${video.title}">
           </a>
 
           <div class="video-info">
@@ -178,7 +178,8 @@
 
       for (let i = 1; i <= totalPages; i++) {
 
-        const button = document.createElement("button");
+        const button =
+          document.createElement("button");
 
         button.textContent = i;
 
@@ -222,13 +223,15 @@
 
           event.preventDefault();
 
-          currentCategory = link.dataset.category;
+          currentCategory =
+            link.dataset.category;
 
           currentPage = 1;
 
           showVideos();
 
           sideMenu.classList.remove("open");
+
           menuOverlay.classList.remove("open");
 
         });
