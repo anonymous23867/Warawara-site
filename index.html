@@ -15,17 +15,19 @@
 
   <header class="site-header">
 
-  <button class="menu-button" id="menuButton" type="button">
-    ☰
-  </button>
+    <button class="menu-button" id="menuButton" type="button">
+      ☰
+    </button>
 
-  <div class="header-image-wrap">
-    <img src="images/header.png"
-         class="header-image"
-         alt="わらわらサイト">
-  </div>
+    <div class="header-center">
+      <img src="images/logo.png" class="site-logo" alt="ロゴ">
 
-</header>
+      <div class="site-title">
+        わらわらサイト
+      </div>
+    </div>
+
+  </header>
 
   <nav class="side-menu" id="sideMenu">
 
@@ -39,11 +41,25 @@
 
     <div class="menu-space"></div>
 
-    <a href="#" class="menu-link category-link" data-category="all">全て</a>
-    <a href="#" class="menu-link category-link" data-category="事故">事故</a>
-    <a href="#" class="menu-link category-link" data-category="動物">動物</a>
-    <a href="#" class="menu-link category-link" data-category="管理人おすすめ">管理人おすすめ</a>
-    <a href="#" class="menu-link category-link" data-category="本日の一品">本日の一品</a>
+    <a href="#" class="menu-link category-link" data-category="all">
+      全て
+    </a>
+
+    <a href="#" class="menu-link category-link" data-category="事故">
+      事故
+    </a>
+
+    <a href="#" class="menu-link category-link" data-category="動物">
+      動物
+    </a>
+
+    <a href="#" class="menu-link category-link" data-category="管理人おすすめ">
+      管理人おすすめ
+    </a>
+
+    <a href="#" class="menu-link category-link" data-category="本日の一品">
+      本日の一品
+    </a>
 
   </nav>
 
@@ -54,9 +70,11 @@
   <div id="pagination" class="pagination"></div>
 
   <script>
+
     const menuButton = document.getElementById("menuButton");
     const sideMenu = document.getElementById("sideMenu");
     const menuOverlay = document.getElementById("menuOverlay");
+
     const videoList = document.getElementById("video-list");
     const pagination = document.getElementById("pagination");
 
@@ -77,16 +95,20 @@
     });
 
     function getFilteredVideos() {
+
       const reversedVideos = [...allVideos].reverse();
 
       if (currentCategory === "all") {
         return reversedVideos;
       }
 
-      return reversedVideos.filter(video => video.category === currentCategory);
+      return reversedVideos.filter(video =>
+        video.category === currentCategory
+      );
     }
 
     function showVideos() {
+
       videoList.innerHTML = "";
 
       const filteredVideos = getFilteredVideos();
@@ -94,23 +116,28 @@
       const startIndex = (currentPage - 1) * videosPerPage;
       const endIndex = startIndex + videosPerPage;
 
-      const videosToShow = filteredVideos.slice(startIndex, endIndex);
+      const videosToShow =
+        filteredVideos.slice(startIndex, endIndex);
 
       videosToShow.forEach(video => {
+
         const card = document.createElement("article");
+
         card.className = "video-card";
 
         card.innerHTML = `
-          <a href="${video.video}"
-             class="thumbnail-link"
-             target="_blank">
+          <a href="${video.video}" class="thumbnail-link" target="_blank">
 
-            <img src="${video.thumbnail}"
-                 class="thumbnail"
-                 alt="${video.title}">
+            <img
+              src="${video.thumbnail}"
+              class="thumbnail"
+              alt="${video.title}"
+            >
+
           </a>
 
           <div class="video-info">
+
             <div class="video-text">
 
               <div class="video-title">
@@ -126,28 +153,35 @@
               </div>
 
             </div>
+
           </div>
         `;
 
         videoList.appendChild(card);
+
       });
 
       showPagination(filteredVideos.length);
+
     }
 
     function showPagination(totalVideos) {
+
       pagination.innerHTML = "";
 
-      const totalPages = Math.ceil(totalVideos / videosPerPage);
+      const totalPages =
+        Math.ceil(totalVideos / videosPerPage);
 
       if (totalPages <= 1) {
         return;
       }
 
       for (let i = 1; i <= totalPages; i++) {
+
         const button = document.createElement("button");
 
         button.textContent = i;
+
         button.className = "page-button";
 
         if (i === currentPage) {
@@ -155,35 +189,52 @@
         }
 
         button.addEventListener("click", () => {
+
           currentPage = i;
+
           showVideos();
+
           window.scrollTo(0, 0);
+
         });
 
         pagination.appendChild(button);
+
       }
+
     }
 
     fetch("videos.json")
       .then(response => response.json())
       .then(videos => {
+
         allVideos = videos;
-        showVideos();
-      });
-
-    document.querySelectorAll(".category-link").forEach(link => {
-      link.addEventListener("click", event => {
-        event.preventDefault();
-
-        currentCategory = link.dataset.category;
-        currentPage = 1;
 
         showVideos();
 
-        sideMenu.classList.remove("open");
-        menuOverlay.classList.remove("open");
       });
-    });
+
+    document
+      .querySelectorAll(".category-link")
+      .forEach(link => {
+
+        link.addEventListener("click", event => {
+
+          event.preventDefault();
+
+          currentCategory = link.dataset.category;
+
+          currentPage = 1;
+
+          showVideos();
+
+          sideMenu.classList.remove("open");
+          menuOverlay.classList.remove("open");
+
+        });
+
+      });
+
   </script>
 
 </body>
