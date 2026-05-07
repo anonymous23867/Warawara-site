@@ -4,9 +4,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>訪問者数 - わらわらサイト</title>
 
   <style>
+
     * {
       box-sizing: border-box;
     }
@@ -14,39 +16,50 @@
     body {
       margin: 0;
       min-height: 100vh;
+
       font-family: Arial, Helvetica, sans-serif;
+
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
+
       color: white;
+
       overflow: hidden;
     }
 
     .overlay {
       min-height: 100vh;
+
       background: rgba(0, 0, 0, 0.45);
+
       display: flex;
       justify-content: center;
       align-items: center;
+
       text-align: center;
     }
 
     .visitor-box {
       font-weight: bold;
+
       text-shadow: 0 3px 10px rgba(0, 0, 0, 0.8);
     }
 
     .visitor-title {
       font-size: 42px;
+
       margin-bottom: 25px;
     }
 
     .visitor-count {
       font-size: 72px;
+
       color: red;
     }
 
     @media (max-width: 600px) {
+
       .visitor-title {
         font-size: 30px;
       }
@@ -54,21 +67,35 @@
       .visitor-count {
         font-size: 56px;
       }
+
     }
+
   </style>
 </head>
 
 <body>
 
   <div class="overlay">
+
     <div class="visitor-box">
-      <div class="visitor-title">これまでの訪問者</div>
-      <div class="visitor-count">1人</div>
+
+      <div class="visitor-title">
+        これまでの訪問者
+      </div>
+
+      <div class="visitor-count">
+        1人
+      </div>
+
     </div>
+
   </div>
 
   <script>
+
+    // 背景画像一覧
     const backgrounds = [
+
       "images/IMG_6575.jpg",
       "images/IMG_6687.JPG",
       "images/IMG_6688.JPG",
@@ -79,11 +106,16 @@
       "images/IMG_6693.JPG",
       "images/IMG_6694.JPG",
       "images/IMG_6695.JPG"
+
     ];
 
-    const randomImage = backgrounds[Math.floor(Math.random() * backgrounds.length)];
+    // ランダム画像
+    const randomImage =
+      backgrounds[Math.floor(Math.random() * backgrounds.length)];
 
+    // 背景に設定
     document.body.style.backgroundImage = `url('${randomImage}')`;
+
   </script>
 
 </body>

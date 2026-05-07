@@ -4,40 +4,75 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>わらわらサイト</title>
+
   <link rel="icon" href="images/favicon.png" type="image/png">
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
+  <!-- ヘッダー -->
   <header class="site-header">
-    <button class="menu-button" id="menuButton" type="button">☰</button>
+
+    <button class="menu-button" id="menuButton" type="button">
+      ☰
+    </button>
 
     <div class="header-center">
       <img src="images/logo.png" class="site-logo" alt="ロゴ">
-      <div class="site-title">わらわらサイト</div>
+
+      <div class="site-title">
+        わらわらサイト
+      </div>
     </div>
+
   </header>
 
+  <!-- サイドメニュー -->
   <nav class="side-menu" id="sideMenu">
-    <a href="about.html" class="menu-link about-link">このサイトについて</a>
-    <a href="visitor.html" class="menu-link">訪問者数</a>
+
+    <a href="about.html" class="menu-link about-link">
+      このサイトについて
+    </a>
+
+    <a href="visitor.html" class="menu-link">
+      訪問者数
+    </a>
 
     <div class="menu-space"></div>
 
-    <a href="#" class="menu-link category-link" data-category="all">全て</a>
-    <a href="#" class="menu-link category-link" data-category="事故">事故</a>
-    <a href="#" class="menu-link category-link" data-category="動物">動物</a>
-    <a href="#" class="menu-link category-link" data-category="管理人おすすめ">管理人おすすめ</a>
-    <a href="#" class="menu-link category-link" data-category="本日の一品">本日の一品</a>
+    <a href="#" class="menu-link category-link" data-category="all">
+      全て
+    </a>
+
+    <a href="#" class="menu-link category-link" data-category="事故">
+      事故
+    </a>
+
+    <a href="#" class="menu-link category-link" data-category="動物">
+      動物
+    </a>
+
+    <a href="#" class="menu-link category-link" data-category="管理人おすすめ">
+      管理人おすすめ
+    </a>
+
+    <a href="#" class="menu-link category-link" data-category="本日の一品">
+      本日の一品
+    </a>
+
   </nav>
 
+  <!-- 背景オーバーレイ -->
   <div class="menu-overlay" id="menuOverlay"></div>
 
+  <!-- 動画一覧 -->
   <main id="video-list" class="video-list"></main>
 
   <script>
+
     const menuButton = document.getElementById("menuButton");
     const sideMenu = document.getElementById("sideMenu");
     const menuOverlay = document.getElementById("menuOverlay");
@@ -45,65 +80,104 @@
 
     let allVideos = [];
 
+    // メニュー開閉
     menuButton.addEventListener("click", () => {
       sideMenu.classList.toggle("open");
       menuOverlay.classList.toggle("open");
     });
 
+    // 背景クリックで閉じる
     menuOverlay.addEventListener("click", () => {
       sideMenu.classList.remove("open");
       menuOverlay.classList.remove("open");
     });
 
+    // 動画表示
     function showVideos(category) {
+
       videoList.innerHTML = "";
 
-      const filteredVideos = category === "all"
-        ? allVideos
-        : allVideos.filter(video => video.category === category);
+      const filteredVideos =
+        category === "all"
+          ? allVideos
+          : allVideos.filter(video => video.category === category);
 
       filteredVideos.forEach(video => {
+
         const card = document.createElement("article");
+
         card.className = "video-card";
 
         card.innerHTML = `
-          <a href="${video.video}" class="thumbnail-link" target="_blank">
-            <img src="${video.thumbnail}" class="thumbnail" alt="${video.title}">
+          <a href="${video.video}"
+             class="thumbnail-link"
+             target="_blank">
+
+            <img src="${video.thumbnail}"
+                 class="thumbnail"
+                 alt="${video.title}">
           </a>
 
           <div class="video-info">
-            <img src="${video.icon}" class="channel-icon" alt="アイコン">
+
+            <img src="${video.icon}"
+                 class="channel-icon"
+                 alt="アイコン">
 
             <div class="video-text">
-              <div class="video-title">${video.title}</div>
-              <div class="video-description">${video.description}</div>
-              <div class="video-meta">${video.views} ・ ${video.date}</div>
+
+              <div class="video-title">
+                ${video.title}
+              </div>
+
+              <div class="video-description">
+                ${video.description}
+              </div>
+
+              <div class="video-meta">
+                ${video.views} ・ ${video.date}
+              </div>
+
             </div>
+
           </div>
         `;
 
         videoList.appendChild(card);
+
       });
+
     }
 
+    // JSON読み込み
     fetch("videos.json")
       .then(response => response.json())
       .then(videos => {
+
         allVideos = videos;
+
         showVideos("all");
+
       });
 
+    // カテゴリ切替
     document.querySelectorAll(".category-link").forEach(link => {
+
       link.addEventListener("click", event => {
+
         event.preventDefault();
 
         const category = link.dataset.category;
+
         showVideos(category);
 
         sideMenu.classList.remove("open");
         menuOverlay.classList.remove("open");
+
       });
+
     });
+
   </script>
 
 </body>
