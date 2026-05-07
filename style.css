@@ -16,7 +16,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 12px;
+  padding: 0;
   background: white;
   border-bottom: 1px solid #eee;
   position: sticky;
@@ -28,12 +28,24 @@ body {
 
 .menu-button {
   position: absolute;
-  left: 10px;
+
+  /* サムネ左端と完全に揃える */
+  left: 0;
+
   top: 50%;
   transform: translateY(-50%);
+
   font-size: 34px;
+
   cursor: pointer;
   user-select: none;
+
+  width: 60px;
+  height: 60px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* 中央 */
@@ -55,11 +67,16 @@ body {
   object-fit: contain;
 }
 
+/* ←ここを変更 */
+
 .site-title {
-  margin-left: 12px;
+  margin-left: 0;
+
   font-size: 24px;
   font-weight: bold;
+
   color: #111;
+
   white-space: nowrap;
 }
 
@@ -198,10 +215,7 @@ body {
 /* 動画情報 */
 
 .video-info {
-  display: flex;
-  flex-direction: column;
-
-  margin-top: 2px;
+  margin-top: -4px;
 
   padding-left: 4px;
   padding-right: 6px;
@@ -213,9 +227,9 @@ body {
   font-size: 20px;
   font-weight: bold;
 
-  line-height: 1.35;
+  line-height: 1.25;
 
-  margin: 0 0 3px 0;
+  margin: 0;
 }
 
 /* 説明 */
@@ -225,9 +239,9 @@ body {
 
   color: #444;
 
-  line-height: 1.45;
+  line-height: 1.35;
 
-  margin: 0 0 3px 0;
+  margin: 0;
 }
 
 /* 再生回数・投稿日 */
@@ -264,22 +278,30 @@ body {
 
   .site-header {
     height: 64px;
+    padding: 0;
   }
 
   .menu-button {
-    left: 8px;
+
+    /* サムネ左端と完全一致 */
+    left: 0;
 
     font-size: 32px;
+
+    width: 56px;
+    height: 56px;
   }
 
   .site-logo {
     height: 38px;
   }
 
+  /* ←ここも変更 */
+
   .site-title {
     font-size: 21px;
 
-    margin-left: 8px;
+    margin-left: 0;
   }
 
   #video-list {
@@ -294,10 +316,10 @@ body {
     border-radius: 0;
   }
 
-  /* サムネの左下から始まる感じ */
+  /* サムネと完全密着 */
 
   .video-info {
-    margin-top: 2px;
+    margin-top: -4px;
 
     padding-left: 4px;
     padding-right: 8px;
@@ -306,17 +328,17 @@ body {
   .video-title {
     font-size: 19px;
 
-    line-height: 1.32;
+    line-height: 1.28;
 
-    margin: 0 0 2px 0;
+    margin: 0;
   }
 
   .video-description {
     font-size: 14px;
 
-    line-height: 1.4;
+    line-height: 1.35;
 
-    margin: 0 0 2px 0;
+    margin: 0;
   }
 
   .video-meta {
