@@ -13,7 +13,6 @@
 
 <body>
 
-  <!-- ヘッダー -->
   <header class="site-header">
 
     <button class="menu-button" id="menuButton" type="button">
@@ -30,7 +29,6 @@
 
   </header>
 
-  <!-- サイドメニュー -->
   <nav class="side-menu" id="sideMenu">
 
     <a href="about.html" class="menu-link about-link">
@@ -43,69 +41,65 @@
 
     <div class="menu-space"></div>
 
-    <a href="#" class="menu-link category-link" data-category="all">
-      全て
-    </a>
-
-    <a href="#" class="menu-link category-link" data-category="事故">
-      事故
-    </a>
-
-    <a href="#" class="menu-link category-link" data-category="動物">
-      動物
-    </a>
-
-    <a href="#" class="menu-link category-link" data-category="管理人おすすめ">
-      管理人おすすめ
-    </a>
-
-    <a href="#" class="menu-link category-link" data-category="本日の一品">
-      本日の一品
-    </a>
+    <a href="#" class="menu-link category-link" data-category="all">全て</a>
+    <a href="#" class="menu-link category-link" data-category="事故">事故</a>
+    <a href="#" class="menu-link category-link" data-category="動物">動物</a>
+    <a href="#" class="menu-link category-link" data-category="管理人おすすめ">管理人おすすめ</a>
+    <a href="#" class="menu-link category-link" data-category="本日の一品">本日の一品</a>
 
   </nav>
 
-  <!-- 背景オーバーレイ -->
   <div class="menu-overlay" id="menuOverlay"></div>
 
-  <!-- 動画一覧 -->
   <main id="video-list" class="video-list"></main>
 
-  <script>
+  <div id="pagination" class="pagination"></div>
 
+  <script>
     const menuButton = document.getElementById("menuButton");
     const sideMenu = document.getElementById("sideMenu");
     const menuOverlay = document.getElementById("menuOverlay");
     const videoList = document.getElementById("video-list");
+    const pagination = document.getElementById("pagination");
 
     let allVideos = [];
+    let currentCategory = "all";
+    let currentPage = 1;
 
-    // メニュー開閉
+    const videosPerPage = 10;
+
     menuButton.addEventListener("click", () => {
       sideMenu.classList.toggle("open");
       menuOverlay.classList.toggle("open");
     });
 
-    // 背景クリックで閉じる
     menuOverlay.addEventListener("click", () => {
       sideMenu.classList.remove("open");
       menuOverlay.classList.remove("open");
     });
 
-    // 動画表示
-    function showVideos(category) {
+    function getFilteredVideos() {
+      const reversedVideos = [...allVideos].reverse();
 
+      if (currentCategory === "all") {
+        return reversedVideos;
+      }
+
+      return reversedVideos.filter(video => video.category === currentCategory);
+    }
+
+    function showVideos() {
       videoList.innerHTML = "";
 
-      const filteredVideos =
-        category === "all"
-          ? allVideos
-          : allVideos.filter(video => video.category === category);
+      const filteredVideos = getFilteredVideos();
 
-      filteredVideos.forEach(video => {
+      const startIndex = (currentPage - 1) * videosPerPage;
+      const endIndex = startIndex + videosPerPage;
 
+      const videosToShow = filteredVideos.slice(startIndex, endIndex);
+
+      videosToShow.forEach(video => {
         const card = document.createElement("article");
-
         card.className = "video-card";
 
         card.innerHTML = `
@@ -119,10 +113,6 @@
           </a>
 
           <div class="video-info">
-
-            
-                
-
             <div class="video-text">
 
               <div class="video-title">
@@ -138,45 +128,64 @@
               </div>
 
             </div>
-
           </div>
         `;
 
         videoList.appendChild(card);
-
       });
 
+      showPagination(filteredVideos.length);
     }
 
-    // JSON読み込み
+    function showPagination(totalVideos) {
+      pagination.innerHTML = "";
+
+      const totalPages = Math.ceil(totalVideos / videosPerPage);
+
+      if (totalPages <= 1) {
+        return;
+      }
+
+      for (let i = 1; i <= totalPages; i++) {
+        const button = document.createElement("button");
+
+        button.textContent = i;
+        button.className = "page-button";
+
+        if (i === currentPage) {
+          button.classList.add("active");
+        }
+
+        button.addEventListener("click", () => {
+          currentPage = i;
+          showVideos();
+          window.scrollTo(0, 0);
+        });
+
+        pagination.appendChild(button);
+      }
+    }
+
     fetch("videos.json")
       .then(response => response.json())
       .then(videos => {
-
         allVideos = videos;
-
-        showVideos("all");
-
+        showVideos();
       });
 
-    // カテゴリ切替
     document.querySelectorAll(".category-link").forEach(link => {
-
       link.addEventListener("click", event => {
-
         event.preventDefault();
 
-        const category = link.dataset.category;
+        currentCategory = link.dataset.category;
+        currentPage = 1;
 
-        showVideos(category);
+        showVideos();
 
         sideMenu.classList.remove("open");
         menuOverlay.classList.remove("open");
-
       });
-
     });
-
   </script>
 
 </body>
