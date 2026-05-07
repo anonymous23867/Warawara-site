@@ -2,190 +2,248 @@
 <html lang="ja">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>わらわらサイト</title>
+  <title>わらわらサイト</title>
 
-  <meta name="description" content="広告無しでストレスフリーに閲覧できる動画サイト。">
+  <meta name="description" content="広告無しでストレスフリーに閲覧できる動画サイト。">
 
-  <link rel="icon" href="images/favicon.png" type="image/png">
-  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="images/favicon.png" type="image/png">
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-  <header class="site-header">
+  <header class="site-header">
 
-    <div class="menu-button" id="menuButton">
-      ☰
-    </div>
+    <div class="menu-button" id="menuButton">
+      ☰
+    </div>
 
-    <div class="header-center">
+    <div class="header-center">
 
-      <a href="about.html" class="logo-link">
-        <img src="images/logo.png" class="site-logo" alt="ロゴ">
-      </a>
+      <a href="about.html" class="logo-link">
+        <img src="images/logo.png" class="site-logo" alt="ロゴ">
+      </a>
 
-      <div class="site-title">
-        わらわらサイト
-      </div>
+      <div class="site-title">
+        わらわらサイト
+      </div>
 
-    </div>
+    </div>
 
-  </header>
+  </header>
 
-  <nav class="side-menu" id="sideMenu">
+  <nav class="side-menu" id="sideMenu">
 
-    <a href="about.html" class="menu-main">
-      このサイトについて
-    </a>
+    <a href="about.html" class="menu-main">
+      このサイトについて
+    </a>
 
-    <div class="menu-space"></div>
+    <div class="menu-space"></div>
 
-    <a href="#" data-category="全て">全て</a>
-    <a href="#" data-category="事故">事故</a>
-    <a href="#" data-category="動物">動物</a>
-    <a href="#" data-category="管理人おすすめ">管理人おすすめ</a>
-    <a href="#" data-category="本日の一品">本日の一品</a>
+    <a href="#" data-category="全て">全て</a>
+    <a href="#" data-category="事故">事故</a>
+    <a href="#" data-category="動物">動物</a>
+    <a href="#" data-category="管理人おすすめ">管理人おすすめ</a>
+    <a href="#" data-category="本日の一品">本日の一品</a>
 
-  </nav>
+  </nav>
 
-  <div class="menu-overlay" id="menuOverlay"></div>
+  <div class="menu-overlay" id="menuOverlay"></div>
 
-  <main id="video-list"></main>
+  <main id="video-list"></main>
 
-  <div id="pagination"></div>
+  <div id="pagination"></div>
 
-  <script>
-    const menuButton = document.getElementById("menuButton");
-    const sideMenu = document.getElementById("sideMenu");
-    const menuOverlay = document.getElementById("menuOverlay");
+  <script>
 
-    menuButton.addEventListener("click", () => {
-      sideMenu.classList.toggle("open");
-      menuOverlay.classList.toggle("show");
-    });
+    const menuButton = document.getElementById("menuButton");
+    const sideMenu = document.getElementById("sideMenu");
+    const menuOverlay = document.getElementById("menuOverlay");
 
-    menuOverlay.addEventListener("click", () => {
-      sideMenu.classList.remove("open");
-      menuOverlay.classList.remove("show");
-    });
+    menuButton.addEventListener("click", () => {
+      sideMenu.classList.toggle("open");
+      menuOverlay.classList.toggle("show");
+    });
 
-    fetch("videos.json")
-      .then(res => res.json())
-      .then(videos => {
+    menuOverlay.addEventListener("click", () => {
+      sideMenu.classList.remove("open");
+      menuOverlay.classList.remove("show");
+    });
 
-        const container = document.getElementById("video-list");
-        const pagination = document.getElementById("pagination");
+    fetch("videos.json")
+      .then(res => res.json())
+      .then(videos => {
 
-        const videosPerPage = 10;
-        let currentPage = 1;
-        let currentCategory = "全て";
+        const container = document.getElementById("video-list");
+        const pagination = document.getElementById("pagination");
 
-        function getFilteredVideos() {
-          if (currentCategory === "全て") {
-            return videos;
-          }
+        const videosPerPage = 10;
 
-          return videos.filter(video => {
-            if (Array.isArray(video.category)) {
-              return video.category.includes(currentCategory);
-            }
+        let currentPage = 1;
+        let currentCategory = "全て";
 
-            return video.category === currentCategory;
-          });
-        }
+        function getFilteredVideos() {
 
-        function showPage(page) {
-          container.innerHTML = "";
-          pagination.innerHTML = "";
+          if (currentCategory === "全て") {
+            return videos;
+          }
 
-          const filteredVideos = getFilteredVideos();
+          return videos.filter(video => {
 
-          const start = (page - 1) * videosPerPage;
-          const end = start + videosPerPage;
+            if (Array.isArray(video.category)) {
+              return video.category.includes(currentCategory);
+            }
 
-          const pageVideos = filteredVideos.slice(start, end);
+            return video.category === currentCategory;
 
-          pageVideos.forEach(video => {
+          });
 
-            const card = document.createElement("a");
+        }
 
-            card.className = "video-card";
-            card.href = video.video;
-            card.target = "_blank";
+        async function getViews(videoId) {
 
-            card.innerHTML = `
-              <div class="thumbnail-wrap">
-                <img src="${video.thumbnail}" class="thumbnail" alt="サムネイル">
-              </div>
+          try {
 
-              <div class="video-info">
-                <div class="video-text">
+            const response = await fetch(
+              `https://api.countapi.xyz/get/warawara-site/video-${videoId}`
+            );
 
-                  <div class="video-title">
-                    ${video.title}
-                  </div>
+            const data = await response.json();
 
-                  <div class="video-description">
-                    ${video.description}
-                  </div>
+            return data.value || 0;
 
-                  <div class="video-meta">
-                    ${video.views} ・ ${video.date}
-                  </div>
+          } catch {
 
-                </div>
-              </div>
-            `;
+            return 0;
 
-            container.appendChild(card);
+          }
 
-          });
+        }
 
-          const totalPages = Math.ceil(filteredVideos.length / videosPerPage);
+        async function incrementViews(videoId) {
 
-          for (let i = 1; i <= totalPages; i++) {
+          try {
 
-            const button = document.createElement("button");
+            await fetch(
+              `https://api.countapi.xyz/hit/warawara-site/video-${videoId}`
+            );
 
-            button.textContent = i;
+          } catch {}
 
-            if (i === page) {
-              button.style.fontWeight = "bold";
-            }
+        }
 
-            button.addEventListener("click", () => {
-              currentPage = i;
-              showPage(currentPage);
-              window.scrollTo(0, 0);
-            });
+        async function showPage(page) {
 
-            pagination.appendChild(button);
-          }
-        }
+          container.innerHTML = "";
+          pagination.innerHTML = "";
 
-        document.querySelectorAll(".side-menu a[data-category]").forEach(link => {
-          link.addEventListener("click", e => {
-            e.preventDefault();
+          const filteredVideos = getFilteredVideos();
 
-            currentCategory = link.dataset.category;
-            currentPage = 1;
+          const start = (page - 1) * videosPerPage;
+          const end = start + videosPerPage;
 
-            showPage(currentPage);
+          const pageVideos = filteredVideos.slice(start, end);
 
-            sideMenu.classList.remove("open");
-            menuOverlay.classList.remove("show");
+          for (const video of pageVideos) {
 
-            window.scrollTo(0, 0);
-          });
-        });
+            const views = await getViews(video.id);
 
-        showPage(currentPage);
+            const card = document.createElement("a");
 
-      });
-  </script>
+            card.className = "video-card";
+            card.href = video.video;
+            card.target = "_blank";
+
+            card.innerHTML = `
+              <div class="thumbnail-wrap">
+                <img src="${video.thumbnail}" class="thumbnail" alt="サムネイル">
+              </div>
+
+              <div class="video-info">
+
+                <div class="video-text">
+
+                  <div class="video-title">
+                    ${video.title}
+                  </div>
+
+                  <div class="video-description">
+                    ${video.description}
+                  </div>
+
+                  <div class="video-meta">
+                    ${views}回視聴 ・ ${video.date}
+                  </div>
+
+                </div>
+
+              </div>
+            `;
+
+            card.addEventListener("click", () => {
+              incrementViews(video.id);
+            });
+
+            container.appendChild(card);
+
+          }
+
+          const totalPages = Math.ceil(filteredVideos.length / videosPerPage);
+
+          for (let i = 1; i <= totalPages; i++) {
+
+            const button = document.createElement("button");
+
+            button.textContent = i;
+
+            if (i === page) {
+              button.style.fontWeight = "bold";
+            }
+
+            button.addEventListener("click", () => {
+
+              currentPage = i;
+
+              showPage(currentPage);
+
+              window.scrollTo(0, 0);
+
+            });
+
+            pagination.appendChild(button);
+
+          }
+
+        }
+
+        document.querySelectorAll(".side-menu a[data-category]").forEach(link => {
+
+          link.addEventListener("click", e => {
+
+            e.preventDefault();
+
+            currentCategory = link.dataset.category;
+            currentPage = 1;
+
+            showPage(currentPage);
+
+            sideMenu.classList.remove("open");
+            menuOverlay.classList.remove("show");
+
+            window.scrollTo(0, 0);
+
+          });
+
+        });
+
+        showPage(currentPage);
+
+      });
+
+  </script>
 
 </body>
 
