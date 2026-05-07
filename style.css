@@ -7,6 +7,9 @@ body {
   background: white;
   color: #111;
   font-family: Arial, Helvetica, sans-serif;
+
+  /* 横スクロール防止 */
+  overflow-x: hidden;
 }
 
 /* ヘッダー */
@@ -47,6 +50,8 @@ body {
 .header-center {
   display: flex;
   align-items: center;
+
+  max-width: 100%;
 }
 
 .logo-link {
@@ -67,6 +72,8 @@ body {
   font-weight: bold;
 
   color: #111;
+
+  white-space: nowrap;
 }
 
 /* サイドメニュー */
@@ -186,6 +193,8 @@ body {
   padding-left: 14px;
 
   display: flex;
+
+  min-width: 0;
 }
 
 .video-title {
@@ -193,6 +202,8 @@ body {
   font-weight: bold;
 
   margin-bottom: 8px;
+
+  word-break: break-word;
 }
 
 .video-description {
@@ -201,6 +212,8 @@ body {
   color: #444;
 
   margin-bottom: 8px;
+
+  word-break: break-word;
 }
 
 .video-meta {
@@ -225,4 +238,74 @@ body {
   font-size: 16px;
 
   cursor: pointer;
+}
+
+/* =========================
+スマホ最適化
+デザインは維持
+========================= */
+
+@media screen and (max-width: 768px) {
+
+  .site-header {
+    height: 60px;
+    padding: 0 12px;
+  }
+
+  .menu-button {
+    left: 12px;
+    font-size: 28px;
+  }
+
+  .site-logo {
+    height: 34px;
+  }
+
+  .site-title {
+    font-size: 18px;
+    margin-left: 8px;
+  }
+
+  .side-menu {
+    width: 220px;
+    left: -220px;
+  }
+
+  #video-list {
+    padding: 12px;
+  }
+
+  .video-card {
+    align-items: flex-start;
+  }
+
+  .thumbnail-wrap {
+    width: 42%;
+    max-width: 180px;
+  }
+
+  .video-info {
+    padding-left: 10px;
+    flex: 1;
+  }
+
+  .video-title {
+    font-size: 16px;
+    margin-bottom: 6px;
+  }
+
+  .video-description {
+    font-size: 13px;
+    margin-bottom: 6px;
+  }
+
+  .video-meta {
+    font-size: 12px;
+  }
+
+  #pagination button {
+    font-size: 14px;
+    padding: 7px 12px;
+  }
+
 }
