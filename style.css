@@ -4,7 +4,7 @@
 
 body {
   margin: 0;
-  background: white;
+  background: #fff;
   color: #111;
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -16,7 +16,6 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0;
   background: white;
   border-bottom: 1px solid #eee;
   position: sticky;
@@ -24,60 +23,74 @@ body {
   z-index: 1000;
 }
 
-/* 左上ハンバーガー */
-
 .menu-button {
   position: absolute;
-
-  /* サムネ左端と完全に揃える */
-  left: 0;
-
-  top: 50%;
-  transform: translateY(-50%);
-
-  font-size: 34px;
-
+  left: 18px;
+  font-size: 32px;
   cursor: pointer;
-  user-select: none;
-
-  width: 60px;
-  height: 60px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
-
-/* 中央 */
 
 .header-center {
   display: flex;
   align-items: center;
-  min-width: 0;
-}
-
-.logo-link {
-  display: flex;
-  align-items: center;
+  gap: 10px;
 }
 
 .site-logo {
+  width: 42px;
   height: 42px;
-  width: auto;
   object-fit: contain;
 }
 
-/* ←ここを変更 */
-
 .site-title {
-  margin-left: 0;
-
-  font-size: 24px;
+  font-size: 22px;
   font-weight: bold;
-
-  color: #111;
-
   white-space: nowrap;
+}
+
+/* 動画一覧 */
+
+#video-list {
+  width: 100%;
+}
+
+/* 動画カード */
+
+.video-card {
+  display: block;
+  width: 100%;
+  text-decoration: none;
+  color: inherit;
+  margin-bottom: 26px;
+}
+
+/* サムネイル */
+
+.thumbnail {
+  width: 100%;
+  display: block;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  background: #ddd;
+}
+
+/* サムネ下の情報 */
+
+.video-info {
+  padding: 8px 14px 0;
+}
+
+.video-title {
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 1.35;
+  margin-bottom: 4px;
+}
+
+.video-meta {
+  font-size: 14px;
+  color: #666;
+  line-height: 1.4;
 }
 
 /* サイドメニュー */
@@ -85,266 +98,84 @@ body {
 .side-menu {
   position: fixed;
   top: 0;
-  left: -260px;
-
-  width: 260px;
-  height: 100%;
-
-  background: white;
-
-  border-right: 1px solid #ddd;
-
-  padding-top: 45px;
-
-  transition: 0.3s;
-
-  z-index: 2000;
-
-  display: flex;
-  flex-direction: column;
-}
-
-/* 開いた時 */
-
-.side-menu.open {
   left: 0;
+  width: 260px;
+  max-width: 80vw;
+  height: 100vh;
+  background: white;
+  z-index: 2000;
+  padding: 90px 20px 20px;
+  transition: transform 0.25s ease;
+  box-shadow: 2px 0 12px rgba(0, 0, 0, 0.15);
+
+  transform: translateX(-100%);
 }
 
-/* メニュー項目 */
+.side-menu.active {
+  transform: translateX(0);
+}
 
-.side-menu a {
+.menu-link {
   display: block;
-
-  padding: 10px 24px;
-
-  text-decoration: none;
-
-  color: #111;
-
+  padding: 14px 8px;
   font-size: 17px;
-
-  line-height: 1.2;
+  color: #111;
+  text-decoration: none;
+  border-bottom: 1px solid #eee;
 }
 
-/* ホバー */
-
-.side-menu a:hover {
+.menu-link:hover {
   background: #f5f5f5;
 }
 
-/* このサイトについて */
-
-.menu-main {
+.about-link {
   font-weight: bold;
-  color: #333;
+  background: #f0f0f0;
 }
-
-/* 空白 */
 
 .menu-space {
-  height: 12px;
+  height: 28px;
 }
 
-/* 背景暗く */
+/* 背景 */
 
 .menu-overlay {
   position: fixed;
-
-  top: 0;
-  left: 0;
-
-  width: 100%;
-  height: 100%;
-
-  background: rgba(0, 0, 0, 0.3);
-
-  opacity: 0;
-  visibility: hidden;
-
-  transition: 0.3s;
-
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
   z-index: 1500;
+  display: none;
 }
 
-.menu-overlay.show {
-  opacity: 1;
-  visibility: visible;
-}
-
-/* 動画一覧 */
-
-#video-list {
-  padding: 20px;
-}
-
-/* 動画カード */
-
-.video-card {
-  display: flex;
-  flex-direction: column;
-
-  text-decoration: none;
-
-  color: inherit;
-
-  margin-bottom: 28px;
-}
-
-/* サムネイル */
-
-.thumbnail-wrap {
-  width: 100%;
-
-  line-height: 0;
-
-  margin: 0;
-  padding: 0;
-}
-
-.thumbnail {
-  width: 100%;
-
+.menu-overlay.active {
   display: block;
-
-  border-radius: 10px;
-
-  margin: 0;
-  padding: 0;
 }
 
-/* 動画情報 */
+/* PC表示 */
 
-.video-info {
-  margin-top: -4px;
-
-  padding-left: 4px;
-  padding-right: 6px;
-}
-
-/* タイトル */
-
-.video-title {
-  font-size: 20px;
-  font-weight: bold;
-
-  line-height: 1.25;
-
-  margin: 0;
-}
-
-/* 説明 */
-
-.video-description {
-  font-size: 15px;
-
-  color: #444;
-
-  line-height: 1.35;
-
-  margin: 0;
-}
-
-/* 再生回数・投稿日 */
-
-.video-meta {
-  font-size: 14px;
-
-  color: #777;
-
-  margin: 0;
-}
-
-/* ページ切り替え */
-
-#pagination {
-  text-align: center;
-
-  padding: 30px 0;
-}
-
-#pagination button {
-  margin: 0 5px;
-
-  padding: 8px 14px;
-
-  font-size: 16px;
-
-  cursor: pointer;
-}
-
-/* スマホ */
-
-@media (max-width: 600px) {
-
-  .site-header {
-    height: 64px;
-    padding: 0;
-  }
-
-  .menu-button {
-
-    /* サムネ左端と完全一致 */
-    left: 0;
-
-    font-size: 32px;
-
-    width: 56px;
-    height: 56px;
-  }
-
-  .site-logo {
-    height: 38px;
-  }
-
-  /* ←ここも変更 */
-
-  .site-title {
-    font-size: 21px;
-
-    margin-left: 0;
-  }
-
+@media screen and (min-width: 768px) {
   #video-list {
-    padding: 0;
+    max-width: 1100px;
+    margin: 30px auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px 18px;
+    padding: 0 18px;
   }
 
   .video-card {
-    margin-bottom: 24px;
+    margin-bottom: 0;
   }
-
-  .thumbnail {
-    border-radius: 0;
-  }
-
-  /* サムネと完全密着 */
 
   .video-info {
-    margin-top: -4px;
-
-    padding-left: 4px;
-    padding-right: 8px;
+    padding: 8px 2px 0;
   }
 
   .video-title {
-    font-size: 19px;
-
-    line-height: 1.28;
-
-    margin: 0;
-  }
-
-  .video-description {
-    font-size: 14px;
-
-    line-height: 1.35;
-
-    margin: 0;
+    font-size: 16px;
   }
 
   .video-meta {
     font-size: 13px;
-
-    margin: 0;
   }
-
 }
