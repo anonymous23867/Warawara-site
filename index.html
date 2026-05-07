@@ -5,16 +5,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- 検索結果の青いタイトル -->
   <title>わらわらサイト</title>
 
-  <!-- Google検索に表示される説明文 -->
-  <meta name="description"
-    content="広告無しでストレスフリーに閲覧できるグロ動画サイト。私が興味を持ったなど様々なグロを掲載しています。">
+  <meta name="description" content="広告無しでストレスフリーに閲覧できる動画サイト。">
 
-  <!-- 検索結果やタブに表示されるロゴ -->
   <link rel="icon" href="images/favicon.png" type="image/png">
-
   <link rel="stylesheet" href="style.css">
 </head>
 
@@ -22,19 +17,61 @@
 
   <header class="site-header">
 
-    <a href="about.html">
-      <img src="images/dange.png" class="site-logo" alt="説明ページ">
-    </a>
+    <div class="menu-button" id="menuButton">
+      ☰
+    </div>
 
-    <h1 class="site-title">⬅️わらわらサイトについて</h1>
+    <div class="header-center">
+
+      <a href="about.html" class="logo-link">
+        <img src="images/logo.png" class="site-logo" alt="ロゴ">
+      </a>
+
+      <div class="site-title">
+        わらわらサイト
+      </div>
+
+    </div>
 
   </header>
+
+  <nav class="side-menu" id="sideMenu">
+
+    <a href="about.html" class="menu-main">
+      このサイトについて
+    </a>
+
+    <div class="menu-space"></div>
+
+    <a href="#" data-category="全て">全て</a>
+    <a href="#" data-category="事故">事故</a>
+    <a href="#" data-category="動物">動物</a>
+    <a href="#" data-category="管理人おすすめ">管理人おすすめ</a>
+    <a href="#" data-category="本日の一品">本日の一品</a>
+
+  </nav>
+
+  <div class="menu-overlay" id="menuOverlay"></div>
 
   <main id="video-list"></main>
 
   <div id="pagination"></div>
 
   <script>
+    const menuButton = document.getElementById("menuButton");
+    const sideMenu = document.getElementById("sideMenu");
+    const menuOverlay = document.getElementById("menuOverlay");
+
+    menuButton.addEventListener("click", () => {
+      sideMenu.classList.toggle("open");
+      menuOverlay.classList.toggle("show");
+    });
+
+    menuOverlay.addEventListener("click", () => {
+      sideMenu.classList.remove("open");
+      menuOverlay.classList.remove("show");
+    });
+
     fetch("videos.json")
       .then(res => res.json())
       .then(videos => {
@@ -44,16 +81,32 @@
 
         const videosPerPage = 10;
         let currentPage = 1;
+        let currentCategory = "全て";
+
+        function getFilteredVideos() {
+          if (currentCategory === "全て") {
+            return videos;
+          }
+
+          return videos.filter(video => {
+            if (Array.isArray(video.category)) {
+              return video.category.includes(currentCategory);
+            }
+
+            return video.category === currentCategory;
+          });
+        }
 
         function showPage(page) {
-
           container.innerHTML = "";
           pagination.innerHTML = "";
+
+          const filteredVideos = getFilteredVideos();
 
           const start = (page - 1) * videosPerPage;
           const end = start + videosPerPage;
 
-          const pageVideos = videos.slice(start, end);
+          const pageVideos = filteredVideos.slice(start, end);
 
           pageVideos.forEach(video => {
 
@@ -69,9 +122,6 @@
               </div>
 
               <div class="video-info">
-
-               
-
                 <div class="video-text">
 
                   <div class="video-title">
@@ -87,7 +137,6 @@
                   </div>
 
                 </div>
-
               </div>
             `;
 
@@ -95,7 +144,7 @@
 
           });
 
-          const totalPages = Math.ceil(videos.length / videosPerPage);
+          const totalPages = Math.ceil(filteredVideos.length / videosPerPage);
 
           for (let i = 1; i <= totalPages; i++) {
 
@@ -108,20 +157,30 @@
             }
 
             button.addEventListener("click", () => {
-
               currentPage = i;
-
               showPage(currentPage);
-
               window.scrollTo(0, 0);
-
             });
 
             pagination.appendChild(button);
-
           }
-
         }
+
+        document.querySelectorAll(".side-menu a[data-category]").forEach(link => {
+          link.addEventListener("click", e => {
+            e.preventDefault();
+
+            currentCategory = link.dataset.category;
+            currentPage = 1;
+
+            showPage(currentPage);
+
+            sideMenu.classList.remove("open");
+            menuOverlay.classList.remove("show");
+
+            window.scrollTo(0, 0);
+          });
+        });
 
         showPage(currentPage);
 
