@@ -50,8 +50,8 @@
       動物
     </a>
 
-    <a href="#" class="menu-link category-link" data-category="管理人おすすめ">
-      管理人おすすめ
+    <a href="#" class="menu-link category-link" data-category="管理人のおすすめ">
+      管理人のおすすめ
     </a>
 
     <a href="#" class="menu-link category-link" data-category="本日の一品">
@@ -100,9 +100,16 @@
         return reversedVideos;
       }
 
-      return reversedVideos.filter(video =>
-        video.category === currentCategory
-      );
+      return reversedVideos.filter(video => {
+
+        if (Array.isArray(video.category)) {
+          return video.category.includes(currentCategory);
+        }
+
+        return video.category === currentCategory;
+
+      });
+
     }
 
     function showVideos() {
@@ -149,7 +156,7 @@
               </div>
 
               <div class="video-meta">
-                ${video.views} ・ ${video.date}
+                ${video.views || "0再生"} ・ ${video.date}
               </div>
 
             </div>

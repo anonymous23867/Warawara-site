@@ -6,6 +6,7 @@
     "description": "重慶（中国の都市）のアドベンチャー施設で、女性がジップライン中に転落死した。動画の中で女性は、『ジップラインがちゃんと固定されていない！』と2回も訴えていた。",
     "viewsID":"video1",
     "channel": "わらわらサイト",
+    "category":"事故",
     "date": "2026/05/06",
     "thumbnail": "images/logo.png",
     "video": "https://drive.google.com/file/d/1Rfkety9LB10HDxCWzQdSqwT1sCuElQb3/view?usp=drivesdk"
@@ -26,7 +27,7 @@
     "description": "​​​​​​​​​​​​​​​2023年6月8日、エジプト東部の紅海リゾート地ハルガダで、ロシア人男性（23）がイタチザメに襲われ死亡する事故が発生。観光客ではなく現地在住だったみたい​",
     "viewID": "video3",
     "date": "2026/05/08",
-    "category": "管理人おすすめ",
+    "category": ["事故","管理人のおすすめ"],
     "thumbnail": "images/thumb3.jpg",
     "video": "https://drive.google.com/file/d/1QSEE4IVqpHCiZ-SSEOSCRE34cP-j8nA6/view?usp=drivesdk"
   }
