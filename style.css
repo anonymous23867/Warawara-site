@@ -7,9 +7,6 @@ body {
   background: white;
   color: #111;
   font-family: Arial, Helvetica, sans-serif;
-
-  /* 横スクロール防止 */
-  overflow-x: hidden;
 }
 
 /* ヘッダー */
@@ -50,8 +47,6 @@ body {
 .header-center {
   display: flex;
   align-items: center;
-
-  max-width: 100%;
 }
 
 .logo-link {
@@ -72,8 +67,6 @@ body {
   font-weight: bold;
 
   color: #111;
-
-  white-space: nowrap;
 }
 
 /* サイドメニュー */
@@ -193,17 +186,15 @@ body {
   padding-left: 14px;
 
   display: flex;
-
-  min-width: 0;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .video-title {
   font-size: 20px;
   font-weight: bold;
 
-  margin-bottom: 8px;
-
-  word-break: break-word;
+  margin: 0 0 8px 0;
 }
 
 .video-description {
@@ -211,9 +202,7 @@ body {
 
   color: #444;
 
-  margin-bottom: 8px;
-
-  word-break: break-word;
+  margin: 0 0 8px 0;
 }
 
 .video-meta {
@@ -240,72 +229,63 @@ body {
   cursor: pointer;
 }
 
-/* =========================
-スマホ最適化
-デザインは維持
-========================= */
+/* スマホ表示 */
 
-@media screen and (max-width: 768px) {
-
-  .site-header {
-    height: 60px;
-    padding: 0 12px;
-  }
-
-  .menu-button {
-    left: 12px;
-    font-size: 28px;
-  }
-
-  .site-logo {
-    height: 34px;
-  }
-
-  .site-title {
-    font-size: 18px;
-    margin-left: 8px;
-  }
-
-  .side-menu {
-    width: 220px;
-    left: -220px;
-  }
+@media (max-width: 600px) {
 
   #video-list {
-    padding: 12px;
+    padding: 0;
   }
 
   .video-card {
-    align-items: flex-start;
+    display: block;
+
+    margin-bottom: 28px;
   }
 
   .thumbnail-wrap {
-    width: 42%;
-    max-width: 180px;
+    width: 100%;
+  }
+
+  .thumbnail {
+    width: 100%;
+
+    border-radius: 0;
+
+    display: block;
   }
 
   .video-info {
-    padding-left: 10px;
-    flex: 1;
+    padding: 12px 14px 0 14px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
   }
 
   .video-title {
-    font-size: 16px;
-    margin-bottom: 6px;
+    font-size: 19px;
+    font-weight: bold;
+
+    line-height: 1.35;
+
+    margin: 0 0 6px 0;
   }
 
   .video-description {
-    font-size: 13px;
-    margin-bottom: 6px;
+    font-size: 15px;
+
+    line-height: 1.45;
+
+    color: #555;
+
+    margin: 0 0 6px 0;
   }
 
   .video-meta {
-    font-size: 12px;
-  }
-
-  #pagination button {
     font-size: 14px;
-    padding: 7px 12px;
+
+    color: #777;
   }
 
 }
