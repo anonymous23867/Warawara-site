@@ -22,18 +22,15 @@
 
   <nav class="side-menu" id="sideMenu">
     <a href="about.html" class="menu-link about-link">このサイトについて</a>
+    <a href="visitor.html" class="menu-link">訪問者数</a>
 
     <div class="menu-space"></div>
 
-    <a href="index.html" class="menu-link">全て</a>
-    <a href="#" class="menu-link">事故</a>
-    <a href="#" class="menu-link">動物</a>
-    <a href="#" class="menu-link">管理人おすすめ</a>
-    <a href="#" class="menu-link">本日の一品</a>
-    <a href="visitors.html" class="menu-link">
-  来訪者数
-</a>
-
+    <a href="#" class="menu-link category-link" data-category="all">全て</a>
+    <a href="#" class="menu-link category-link" data-category="事故">事故</a>
+    <a href="#" class="menu-link category-link" data-category="動物">動物</a>
+    <a href="#" class="menu-link category-link" data-category="管理人おすすめ">管理人おすすめ</a>
+    <a href="#" class="menu-link category-link" data-category="本日の一品">本日の一品</a>
   </nav>
 
   <div class="menu-overlay" id="menuOverlay"></div>
@@ -44,58 +41,70 @@
     const menuButton = document.getElementById("menuButton");
     const sideMenu = document.getElementById("sideMenu");
     const menuOverlay = document.getElementById("menuOverlay");
+    const videoList = document.getElementById("video-list");
 
-    menuButton.addEventListener("click", function () {
-      sideMenu.classList.add("open");
-      menuOverlay.classList.add("show");
+    let allVideos = [];
+
+    menuButton.addEventListener("click", () => {
+      sideMenu.classList.toggle("open");
+      menuOverlay.classList.toggle("open");
     });
 
-    menuOverlay.addEventListener("click", function () {
+    menuOverlay.addEventListener("click", () => {
       sideMenu.classList.remove("open");
-      menuOverlay.classList.remove("show");
+      menuOverlay.classList.remove("open");
     });
+
+    function showVideos(category) {
+      videoList.innerHTML = "";
+
+      const filteredVideos = category === "all"
+        ? allVideos
+        : allVideos.filter(video => video.category === category);
+
+      filteredVideos.forEach(video => {
+        const card = document.createElement("article");
+        card.className = "video-card";
+
+        card.innerHTML = `
+          <a href="${video.video}" class="thumbnail-link" target="_blank">
+            <img src="${video.thumbnail}" class="thumbnail" alt="${video.title}">
+          </a>
+
+          <div class="video-info">
+            <img src="${video.icon}" class="channel-icon" alt="アイコン">
+
+            <div class="video-text">
+              <div class="video-title">${video.title}</div>
+              <div class="video-description">${video.description}</div>
+              <div class="video-meta">${video.views} ・ ${video.date}</div>
+            </div>
+          </div>
+        `;
+
+        videoList.appendChild(card);
+      });
+    }
 
     fetch("videos.json")
       .then(response => response.json())
       .then(videos => {
-        const videoList = document.getElementById("video-list");
-
-        videos.forEach(video => {
-          const card = document.createElement("article");
-          card.className = "video-card";
-
-          card.innerHTML = `
-            <a href="${video.video}" class="thumbnail-link" target="_blank">
-              <img src="${video.thumbnail}" class="thumbnail" alt="${video.title}">
-            </a>
-
-            <div class="video-info">
-              <img src="${video.icon}" class="channel-icon" alt="アイコン">
-
-              <div class="video-text">
-                <div class="video-title">${video.title}</div>
-                <div class="video-description">${video.description}</div>
-                <div class="video-meta">${video.views} ・ ${video.date}</div>
-              </div>
-            </div>
-          `;
-
-          videoList.appendChild(card);
-        });
+        allVideos = videos;
+        showVideos("all");
       });
+
+    document.querySelectorAll(".category-link").forEach(link => {
+      link.addEventListener("click", event => {
+        event.preventDefault();
+
+        const category = link.dataset.category;
+        showVideos(category);
+
+        sideMenu.classList.remove("open");
+        menuOverlay.classList.remove("open");
+      });
+    });
   </script>
-
-  <script>
-
-  /* 来訪者カウント */
-
-  fetch("https://api.countapi.xyz/hit/warawara-site/home")
-    .then(response => response.json())
-    .then(data => {
-      console.log("来訪者数", data.value);
-    });
-
-</script>
 
 </body>
 
