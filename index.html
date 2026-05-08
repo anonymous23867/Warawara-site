@@ -1,1 +1,56 @@
-<img src="images/CDF37935-2FA6-405E-9E67-B289EA56C878.GIF" class="full-gif">
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>GIF WALL</title>
+
+<style>
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: black;
+  overflow-x: hidden;
+}
+
+.gif-wall {
+  width: 100vw;
+
+  display: grid;
+
+  grid-template-columns: repeat(4, 1fr);
+
+  gap: 0;
+}
+
+.gif-wall img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+
+  object-fit: cover;
+  display: block;
+}
+</style>
+</head>
+
+<body>
+
+<div class="gif-wall" id="gifWall"></div>
+
+<script>
+const wall = document.getElementById("gifWall");
+
+for (let i = 0; i < 100; i++) {
+
+  const img = document.createElement("img");
+
+  img.src = "images/CDF37935-2FA6-405E-9E67-B289EA56C878.GIF";
+
+  wall.appendChild(img);
+}
+</script>
+
+</body>
+</html>
