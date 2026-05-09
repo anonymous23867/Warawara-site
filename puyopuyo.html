@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+/>
+
+<title>ぶよぶよ</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+
+  background: #111;
+  color: white;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  touch-action: manipulation;
+  overscroll-behavior: none;
+}
+
+.game-wrap {
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 12px;
+  padding: 16px;
+}
+
+h1 {
+  margin: 0;
+
+  letter-spacing: 3px;
+  font-size: 28px;
+}
+
+.info {
+  width: 288px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+button {
+  border: none;
+  background: #333;
+  color: white;
+
+  padding: 10px 14px;
+  border-radius: 8px;
+
+  font-size: 16px;
+
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+
+button:active {
+  transform: scale(0.95);
+  background: #555;
+}
+
+canvas {
+  background: #000;
+  border: 3px solid #555;
+
+  width: 288px;
+  height: 576px;
+
+  image-rendering: pixelated;
+
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+
+.controls {
+  width: 288px;
+
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.help {
+  color: #aaa;
+
+  font-size: 13px;
+  text-align: center;
+  line-height: 1.6;
+}
+
+.home-link {
+  color: white;
+  text-decoration: none;
+
+  background: #333;
+  padding: 8px 14px;
+  border-radius: 8px;
+
+  font-size: 14px;
+}
+</style>
+</head>
+
+<body>
+
+<main class="game-wrap">
+  <h1>ぶよぶよ</h1>
+
+  <a class="home-link" href="index.html">ホームへ戻る</a>
+
+  <div class="info">
+    <div>Score: <span id="score">0</span></div>
+    <button id="restartBtn">RESTART</button>
+  </div>
+
+  <canvas id="game" width="288" height="576"></canvas>
+
+  <div class="controls">
+    <button id="leftBtn">←</button>
+    <button id="rotateBtn">回転</button>
+    <button id="rightBtn">→</button>
+    <button id="downBtn">↓</button>
+  </div>
+
+  <p class="help">
+    PC: ← → ↓ / Spaceで回転<br>
+    スマホ: 下のボタンで操作
+  </p>
+</main>
+
+<script src="script.js"></script>
+
+</body>
+</html>
