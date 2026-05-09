@@ -1,56 +1,38 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<title>GIF WALL</title>
+  <title>Image Drop Puzzle</title>
 
-<style>
-html,
-body {
-  margin: 0;
-  padding: 0;
-  background: black;
-  overflow-x: hidden;
-}
-
-.gif-wall {
-  width: 100vw;
-
-  display: grid;
-
-  grid-template-columns: repeat(3, 1fr);
-
-  gap: 0;
-}
-
-.gif-wall img {
-  width: 100%;
-  aspect-ratio: 1 / 1;
-
-  object-fit: cover;
-  display: block;
-}
-</style>
+  <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
+  <main class="game-wrap">
+    <h1>IMAGE DROP</h1>
 
-<div class="gif-wall" id="gifWall"></div>
+    <div class="info">
+      <div>Score: <span id="score">0</span></div>
+      <button id="restartBtn">RESTART</button>
+    </div>
 
-<script>
-const wall = document.getElementById("gifWall");
+    <canvas id="game" width="288" height="576"></canvas>
 
-for (let i = 0; i < 102; i++) {
+    <div class="controls">
+      <button id="leftBtn">←</button>
+      <button id="rotateBtn">回転</button>
+      <button id="rightBtn">→</button>
+      <button id="downBtn">↓</button>
+    </div>
 
-  const img = document.createElement("img");
+    <p class="help">
+      PC: ← → ↓ / Spaceで回転<br>
+      スマホ: 下のボタンで操作
+    </p>
+  </main>
 
-  img.src = "images/IMG_6574.GIF";
-
-  wall.appendChild(img);
-}
-</script>
-
+  <script src="script.js"></script>
 </body>
 </html>
