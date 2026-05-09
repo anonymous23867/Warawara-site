@@ -26,7 +26,7 @@ let currentPair = null;
 let score = 0;
 let gameOver = false;
 let dropCounter = 0;
-let dropInterval = 700;
+let dropInterval = 350;
 let lastTime = 0;
 let animationId = null;
 
@@ -337,13 +337,28 @@ function drawGameOver() {
   ctx.strokeText(
     "GAME OVER",
     canvas.width / 2,
-    canvas.height / 2
+    canvas.height / 2 - 35
   );
 
   ctx.fillText(
     "GAME OVER",
     canvas.width / 2,
-    canvas.height / 2
+    canvas.height / 2 - 35
+  );
+
+  ctx.font = "bold 28px Arial";
+  ctx.lineWidth = 6;
+
+  ctx.strokeText(
+    "SCORE: " + score,
+    canvas.width / 2,
+    canvas.height / 2 + 30
+  );
+
+  ctx.fillText(
+    "SCORE: " + score,
+    canvas.width / 2,
+    canvas.height / 2 + 30
   );
 }
 
