@@ -1,9 +1,6 @@
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
 
-const scoreEl = document.getElementById("score");
-const restartBtn = document.getElementById("restartBtn");
-
 const leftBtn = document.getElementById("leftBtn");
 const rightBtn = document.getElementById("rightBtn");
 const downBtn = document.getElementById("downBtn");
@@ -185,8 +182,6 @@ function resolveBoard() {
 
         score += group.length * 10;
       }
-
-      scoreEl.textContent = score;
     } else {
       chainHappened = false;
     }
@@ -379,7 +374,6 @@ function startGame() {
 
   score = 0;
   gameOver = false;
-  scoreEl.textContent = score;
 
   currentPair = createPair();
 
@@ -388,8 +382,6 @@ function startGame() {
 
   animationId = requestAnimationFrame(update);
 }
-
-restartBtn.addEventListener("click", startGame);
 
 leftBtn.addEventListener("click", () => {
   move(-1, 0);
