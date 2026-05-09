@@ -26,7 +26,7 @@ let currentPair = null;
 let score = 0;
 let gameOver = false;
 let dropCounter = 0;
-let dropInterval = 350;
+let dropInterval = 250;
 let lastTime = 0;
 let animationId = null;
 
