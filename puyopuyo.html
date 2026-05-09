@@ -13,12 +13,18 @@
 <style>
 * {
   box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
 
 html,
 body {
   margin: 0;
   padding: 0;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: hidden;
 
   background: #111;
   color: white;
@@ -27,44 +33,60 @@ body {
 
   touch-action: manipulation;
   overscroll-behavior: none;
+
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+body {
+  position: fixed;
+  inset: 0;
 }
 
 .game-wrap {
-  min-height: 100vh;
+  width: 100vw;
+  height: 100dvh;
 
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 
-  gap: 12px;
-  padding: 16px;
+  gap: 6px;
+
+  padding:
+    max(6px, env(safe-area-inset-top))
+    8px
+    max(6px, env(safe-area-inset-bottom))
+    8px;
 }
 
 h1 {
   margin: 0;
 
-  letter-spacing: 3px;
-  font-size: 28px;
+  letter-spacing: 2px;
+  font-size: clamp(18px, 5vw, 24px);
 }
 
 .info {
-  width: 288px;
+  width: min(92vw, 300px);
 
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  font-size: 14px;
 }
 
 button {
-  border: none;
+  border: none;
   background: #333;
   color: white;
 
-  padding: 10px 14px;
+  padding: 9px 10px;
   border-radius: 8px;
 
-  font-size: 16px;
+  font-size: 15px;
 
   touch-action: manipulation;
   user-select: none;
@@ -81,8 +103,10 @@ canvas {
   background: #000;
   border: 3px solid #555;
 
-  width: 288px;
-  height: 576px;
+  width: min(88vw, 300px);
+  height: auto;
+
+  aspect-ratio: 1 / 2;
 
   image-rendering: pixelated;
 
@@ -93,19 +117,26 @@ canvas {
 }
 
 .controls {
-  width: 288px;
+  width: min(92vw, 300px);
 
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
+  gap: 6px;
+}
+
+.controls button {
+  min-height: 42px;
+  font-size: 15px;
 }
 
 .help {
+  margin: 0;
+
   color: #aaa;
 
-  font-size: 13px;
+  font-size: 11px;
   text-align: center;
-  line-height: 1.6;
+  line-height: 1.35;
 }
 
 .home-link {
@@ -113,10 +144,10 @@ canvas {
   text-decoration: none;
 
   background: #333;
-  padding: 8px 14px;
+  padding: 7px 12px;
   border-radius: 8px;
 
-  font-size: 14px;
+  font-size: 13px;
 }
 </style>
 </head>
@@ -149,6 +180,30 @@ canvas {
 </main>
 
 <script src="script.js"></script>
+
+<script>
+function fitGameToScreen() {
+  const canvas = document.getElementById("game");
+
+  const screenW = window.innerWidth;
+  const screenH = window.innerHeight;
+
+  const maxW = screenW * 0.88;
+  const maxH = screenH * 0.52;
+
+  const widthByHeight = maxH / 2;
+
+  const finalW = Math.min(maxW, widthByHeight, 300);
+  const finalH = finalW * 2;
+
+  canvas.style.width = finalW + "px";
+  canvas.style.height = finalH + "px";
+}
+
+window.addEventListener("load", fitGameToScreen);
+window.addEventListener("resize", fitGameToScreen);
+window.addEventListener("orientationchange", fitGameToScreen);
+</script>
 
 </body>
 </html>
