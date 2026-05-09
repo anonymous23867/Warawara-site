@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<title>GIF WALL</title>
+<title>dancer</title>
 
 <style>
 
@@ -44,7 +44,7 @@ body {
   backdrop-filter: blur(10px);
 }
 
-/* ハンバーガーボタン */
+/* ハンバーガー */
 
 .menu-button {
   width: 64px;
@@ -128,13 +128,13 @@ body {
   pointer-events: auto;
 }
 
-/* コンテンツ */
+/* 本体 */
 
 .page-content {
   padding-top: 64px;
 }
 
-/* GIF縦一列 */
+/* 縦一列 */
 
 .gif-wall {
   width: 100vw;
@@ -157,8 +157,6 @@ body {
 
 <body>
 
-<!-- ヘッダー -->
-
 <header class="site-header">
 
   <button class="menu-button" id="menuButton">
@@ -166,8 +164,6 @@ body {
   </button>
 
 </header>
-
-<!-- メニュー -->
 
 <nav class="side-menu" id="sideMenu">
 
@@ -180,16 +176,12 @@ body {
   </a>
 
   <a href="wall3.html" class="menu-link">
-    dancer
+    WALL 3
   </a>
 
 </nav>
 
-<!-- 暗転 -->
-
 <div class="overlay" id="overlay"></div>
-
-<!-- 本体 -->
 
 <div class="page-content">
 
@@ -201,18 +193,18 @@ body {
 
 const wall = document.getElementById("gifWall");
 
-/* GIFを100枚 */
+/* 画像100枚 */
 
 for (let i = 0; i < 100; i++) {
 
   const img = document.createElement("img");
 
-  img.src = "images/IMG_6574.GIF";
+  img.src = "images/IMG_6921.GIF";
 
   wall.appendChild(img);
 }
 
-/* メニュー処理 */
+/* メニュー */
 
 const menuButton = document.getElementById("menuButton");
 
@@ -226,8 +218,6 @@ menuButton.addEventListener("click", () => {
 
   overlay.classList.toggle("show");
 });
-
-/* 背景押したら閉じる */
 
 overlay.addEventListener("click", () => {
 
