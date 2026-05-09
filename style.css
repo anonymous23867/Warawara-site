@@ -39,20 +39,25 @@ body {
   align-items: center;
   justify-content: center;
 
-  gap: 12px;
-  padding: 10px;
+  gap: 8px;
+
+  padding:
+    max(10px, env(safe-area-inset-top))
+    10px
+    max(10px, env(safe-area-inset-bottom))
+    10px;
 }
 
 h1 {
   margin: 0;
 
-  letter-spacing: 3px;
-
-  font-size: clamp(22px, 5vw, 28px);
+  font-size: 24px;
+  letter-spacing: 2px;
 }
 
 .info {
-  width: min(92vw, 288px);
+  width: 92vw;
+  max-width: 340px;
 
   display: flex;
   justify-content: space-between;
@@ -64,8 +69,8 @@ button {
   background: #333;
   color: white;
 
-  padding: 12px 14px;
-  border-radius: 8px;
+  padding: 12px 10px;
+  border-radius: 10px;
 
   font-size: 16px;
 
@@ -73,7 +78,7 @@ button {
 }
 
 button:active {
-  transform: scale(0.95);
+  transform: scale(0.96);
   background: #555;
 }
 
@@ -81,8 +86,11 @@ canvas {
   background: #000;
   border: 3px solid #555;
 
-  width: min(92vw, 288px);
-  height: min(calc(92vw * 2), 70dvh);
+  width: min(92vw, 340px);
+
+  aspect-ratio: 1 / 2;
+
+  height: auto;
 
   display: block;
 
@@ -92,7 +100,7 @@ canvas {
 }
 
 .controls {
-  width: min(92vw, 288px);
+  width: min(92vw, 340px);
 
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -100,22 +108,19 @@ canvas {
   gap: 8px;
 }
 
+.controls button {
+  width: 100%;
+  min-height: 52px;
+
+  font-size: 20px;
+}
+
 .help {
+  width: min(92vw, 340px);
+
   color: #aaa;
 
   font-size: 13px;
   text-align: center;
-  line-height: 1.6;
-
-  width: min(92vw, 320px);
-}
-
-/* iPhoneのダブルタップズーム対策 */
-
-input,
-textarea,
-select,
-button,
-canvas {
-  touch-action: manipulation;
+  line-height: 1.5;
 }
