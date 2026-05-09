@@ -69,3 +69,12 @@ canvas {
   text-align: center;
   line-height: 1.6;
 }
+
+html,
+body {
+  touch-action: manipulation;
+
+  overscroll-behavior: none;
+
+  overflow: hidden;
+}
