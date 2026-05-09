@@ -2,46 +2,21 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-
-  <meta
-    name="viewport"
-    content="
-      width=device-width,
-      initial-scale=1.0,
-      maximum-scale=1.0,
-      minimum-scale=1.0,
-      user-scalable=no,
-      viewport-fit=cover
-    "
-  />
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Image Drop Puzzle</title>
-
   <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
-
   <main class="game-wrap">
-
     <h1>ぶよぶよ</h1>
 
     <div class="info">
-      <div>
-        Score:
-        <span id="score">0</span>
-      </div>
-
-      <button id="restartBtn">
-        RESTART
-      </button>
+      <div>Score: <span id="score">0</span></div>
+      <button id="restartBtn">RESTART</button>
     </div>
 
-    <canvas
-      id="game"
-      width="288"
-      height="576"
-    ></canvas>
+    <canvas id="game" width="288" height="576"></canvas>
 
     <div class="controls">
       <button id="leftBtn">←</button>
@@ -50,10 +25,8 @@
       <button id="downBtn">↓</button>
     </div>
 
-   
   </main>
 
   <script src="script.js"></script>
-
 </body>
 </html>

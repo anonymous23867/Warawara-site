@@ -9,49 +9,19 @@ const rightBtn = document.getElementById("rightBtn");
 const downBtn = document.getElementById("downBtn");
 const rotateBtn = document.getElementById("rotateBtn");
 
-/* ===== スマホ拡大縮小防止 ===== */
-
-document.addEventListener(
-  "touchmove",
-  function (e) {
-    if (e.scale !== 1) {
-      e.preventDefault();
-    }
-  },
-  { passive: false }
-);
-
-let lastTouchEnd = 0;
-
-document.addEventListener(
-  "touchend",
-  function (e) {
-    const now = Date.now();
-
-    if (now - lastTouchEnd <= 300) {
-      e.preventDefault();
-    }
-
-    lastTouchEnd = now;
-  },
-  false
-);
-
-/* ========================== */
-
 const COLS = 6;
 const ROWS = 12;
 const SIZE = 48;
 
 const IMAGE_PATHS = [
-  "images/IMG_6574.GIF",
-  "images/IMG_6691 2.JPG",
-  "images/IMG_6921.GIF",
-  "images/IMG_6925.JPG"
+  "images/IMG_6940.jpg",
+  "images/IMG_6925.JPG",
+  "images/IMG_6824.WEBP",
+  "images/IMG_6691 2.JPG"
 ];
 
 const gameOverGif = new Image();
-gameOverGif.src = "images/IMG_6921.GIF";
+gameOverGif.src = "images/IMG_6925.JPG";
 
 let images = [];
 let board = [];
@@ -71,15 +41,6 @@ function loadImages() {
     img.src = path;
 
     img.onload = () => {
-      loaded++;
-
-      if (loaded === IMAGE_PATHS.length) {
-        startGame();
-      }
-    };
-
-    img.onerror = () => {
-      console.error("画像が読み込めません:", path);
       loaded++;
 
       if (loaded === IMAGE_PATHS.length) {
@@ -168,7 +129,7 @@ function canMove(pair, dx, dy, rotation = pair.rotation) {
 }
 
 function move(dx, dy) {
-  if (gameOver || !currentPair) return;
+  if (gameOver) return;
 
   if (canMove(currentPair, dx, dy)) {
     currentPair.x += dx;
@@ -179,7 +140,7 @@ function move(dx, dy) {
 }
 
 function rotatePair() {
-  if (gameOver || !currentPair) return;
+  if (gameOver) return;
 
   const nextRotation = (currentPair.rotation + 1) % 4;
 
@@ -191,9 +152,7 @@ function rotatePair() {
 function lockPair() {
   const sub = getSubPosition(currentPair);
 
-  if (isInside(currentPair.x, currentPair.y)) {
-    board[currentPair.y][currentPair.x] = currentPair.main;
-  }
+  board[currentPair.y][currentPair.x] = currentPair.main;
 
   if (isInside(sub.x, sub.y)) {
     board[sub.y][sub.x] = currentPair.sub;
@@ -330,11 +289,8 @@ function drawBoard() {
 
 function drawCell(x, y, type) {
   if (type === null) return;
-  if (!isInside(x, y)) return;
 
   const img = images[type];
-
-  if (!img) return;
 
   ctx.drawImage(
     img,
@@ -465,7 +421,6 @@ document.addEventListener("keydown", (e) => {
   }
 
   if (e.code === "Space") {
-    e.preventDefault();
     rotatePair();
   }
 });
