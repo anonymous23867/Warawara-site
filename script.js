@@ -18,7 +18,7 @@ const IMAGE_PATHS = [
 ];
 
 const gameOverGif = new Image();
-gameOverGif.src = "images/IMG_6925.JPG";
+gameOverGif.src = "images/IMG_6691 2.JPG";
 
 let images = [];
 let board = [];
