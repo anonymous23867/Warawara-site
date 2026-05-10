@@ -102,3 +102,90 @@ button:active {
     font-size: 14px;
   }
 }
+
+/* =========================
+   3レーン落下ゲーム用
+========================= */
+
+.fall-game-wrap {
+  position: relative;
+}
+
+#fallGame {
+  background: #000;
+  border: 3px solid #555;
+
+  image-rendering: pixelated;
+
+  width: min(88vw, 288px);
+  height: calc(min(88vw, 288px) * 2);
+}
+
+#fallGameOverScreen {
+  display: none;
+
+  position: fixed;
+  inset: 0;
+
+  width: 100vw;
+  height: 100vh;
+
+  background: black;
+
+  z-index: 9999;
+}
+
+#fallGameOverScreen.show {
+  display: block;
+}
+
+#fallGameOverScreen img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  display: block;
+}
+
+.fall-game-over-text {
+  position: fixed;
+
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+
+  color: red;
+  font-size: 48px;
+  font-weight: bold;
+
+  text-shadow:
+    3px 3px 0 black,
+    -3px -3px 0 black;
+}
+
+.fall-score-text {
+  display: block;
+
+  margin-top: 18px;
+
+  font-size: 28px;
+  color: white;
+
+  text-align: center;
+}
+
+/* 拡大・スクロール系防止 */
+
+html,
+body {
+  touch-action: manipulation;
+  overscroll-behavior: none;
+
+  overflow: hidden;
+
+  -webkit-user-select: none;
+  user-select: none;
+
+  -webkit-touch-callout: none;
+}
