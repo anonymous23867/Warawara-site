@@ -1,3 +1,4 @@
+const gameOverSound = document.getElementById("gameOverSound");
 const canvas = document.getElementById("fallGame");
 const ctx = canvas.getContext("2d");
 
@@ -118,6 +119,9 @@ function miss() {
 
 function endGame() {
   gameOver = true;
+
+  gameOverSound.currentTime = 0;
+  gameOverSound.play();
 
   gameOverScreen.innerHTML = `
     <img src="images/IMG_7026.GIF" alt="GAME OVER">
