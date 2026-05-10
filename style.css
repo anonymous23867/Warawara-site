@@ -89,12 +89,12 @@ button:active {
   }
 
   canvas {
-    width: min(94vw, 320px);
-    height: calc(min(94vw, 320px) * 2);
+    width: min(90vw, 300px);
+    height: calc(min(90vw, 300px) * 2);
   }
 
   .controls {
-    width: min(94vw, 320px);
+    width: min(90vw, 300px);
   }
 
   button {
