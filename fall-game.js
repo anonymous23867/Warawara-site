@@ -203,9 +203,7 @@ canvas.addEventListener("pointerdown", (e) => {
   tapLane(e.clientX);
 });
 
-gameOverScreen.addEventListener("click", () => {
-  location.reload();
-});
+
 
 draw();
 requestAnimationFrame((time) => {
