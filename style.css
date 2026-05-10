@@ -94,7 +94,7 @@ button:active {
   }
 
   .controls {
-    width: min(90vw, 300px);
+    width: min(96vw, 340px);
   }
 
   button {
