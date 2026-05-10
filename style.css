@@ -6,40 +6,73 @@ html,
 body {
   margin: 0;
   padding: 0;
+
   background: #111;
   color: white;
+
   font-family: Arial, Helvetica, sans-serif;
+
+  touch-action: manipulation;
+  overscroll-behavior: none;
+  overflow: hidden;
 }
 
-.game-wrap {
-  min-height: 100vh;
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+main {
+  width: 100%;
+  height: 100vh;
+
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  padding: 16px;
+
+  /* ボタンを少し上へ */
+  transform: translateY(-20px);
 }
 
-h1 {
-  margin: 0;
-  letter-spacing: 3px;
-  font-size: 28px;
+/* ゲーム画面 */
+
+canvas {
+  background: #000;
+  border: 3px solid #555;
+
+  image-rendering: pixelated;
+
+  /* スマホ対応 */
+  width: min(88vw, 288px);
+
+  /* 縦長比率維持 */
+  height: calc(min(88vw, 288px) * 2);
 }
 
-.info {
-  width: 288px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+/* 操作ボタン */
+
+.controls {
+  margin-top: 10px;
+
+  width: min(88vw, 288px);
+
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+
+  gap: 6px;
 }
 
 button {
   border: none;
   background: #333;
   color: white;
-  padding: 10px 14px;
-  border-radius: 8px;
+
+  padding: 12px 0;
+
+  border-radius: 10px;
+
   font-size: 16px;
 }
 
@@ -48,33 +81,24 @@ button:active {
   background: #555;
 }
 
-canvas {
-  background: #000;
-  border: 3px solid #555;
-  width: 288px;
-  height: 576px;
-  image-rendering: pixelated;
-}
+/* 小さいスマホ用 */
 
-.controls {
-  width: 288px;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
-}
+@media (max-height: 700px) {
+  main {
+    transform: translateY(-35px);
+  }
 
-.help {
-  color: #aaa;
-  font-size: 13px;
-  text-align: center;
-  line-height: 1.6;
-}
+  canvas {
+    width: min(80vw, 260px);
+    height: calc(min(80vw, 260px) * 2);
+  }
 
-html,
-body {
-  touch-action: manipulation;
+  .controls {
+    width: min(80vw, 260px);
+  }
 
-  overscroll-behavior: none;
-
-  overflow: hidden;
+  button {
+    padding: 10px 0;
+    font-size: 14px;
+  }
 }
