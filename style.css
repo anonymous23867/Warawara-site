@@ -90,7 +90,7 @@ button:active {
 
   canvas {
     width: min(96vw, 340px);
-    height: calc(min(88vw, 288px) * 2);
+    height: calc(min(80vw, 260px) * 2);
   }
 
   .controls {
