@@ -189,3 +189,166 @@ body {
 
   -webkit-touch-callout: none;
 }
+
+/* =========================
+   検いけクイズ
+========================= */
+
+.kenike-quiz-page {
+  width: 100%;
+  min-height: 100vh;
+  background: #111;
+  color: white;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 16px;
+}
+
+.quiz-screen {
+  display: none;
+  width: min(92vw, 430px);
+  text-align: center;
+}
+
+.quiz-screen.active {
+  display: block;
+}
+
+.difficulty-buttons {
+  display: grid;
+  gap: 14px;
+  margin-top: 24px;
+}
+
+.difficulty-buttons button,
+#backBtn {
+  font-size: 22px;
+  padding: 16px;
+  border: none;
+  border-radius: 14px;
+  background: #333;
+  color: white;
+}
+
+.difficulty-buttons button:active,
+#backBtn:active {
+  transform: scale(0.96);
+}
+
+#introGif {
+  width: min(88vw, 360px);
+  max-height: 70vh;
+  object-fit: contain;
+}
+
+.quiz-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.question-box {
+  background: #222;
+  border-radius: 16px;
+  padding: 14px;
+  margin-bottom: 16px;
+}
+
+#questionText {
+  font-size: 22px;
+  line-height: 1.4;
+  margin: 12px 0 0;
+}
+
+#mediaBox img {
+  width: 100%;
+  max-height: 230px;
+  object-fit: contain;
+  border-radius: 12px;
+}
+
+.choices {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.choice-btn {
+  min-height: 90px;
+  border: none;
+  border-radius: 16px;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 12px;
+}
+
+.choice-btn:nth-child(1) {
+  background: #e53935;
+}
+
+.choice-btn:nth-child(2) {
+  background: #1e88e5;
+}
+
+.choice-btn:nth-child(3) {
+  background: #fbc02d;
+  color: #111;
+}
+
+.choice-btn:nth-child(4) {
+  background: #43a047;
+}
+
+.choice-btn.correct {
+  background: #00c853 !important;
+  color: white !important;
+}
+
+.choice-btn.wrong {
+  background: #d50000 !important;
+  color: white !important;
+}
+
+.choice-btn.disabled {
+  pointer-events: none;
+  opacity: 0.9;
+}
+
+#resultScreen {
+  min-height: 80vh;
+  background-image: url("images/result-bg.jpg");
+  background-size: cover;
+  background-position: center;
+  border-radius: 20px;
+
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+#resultScreen.active {
+  display: flex;
+}
+
+.result-box {
+  background: rgba(0, 0, 0, 0.72);
+  padding: 28px;
+  border-radius: 20px;
+  width: 90%;
+}
+
+.result-box h1 {
+  font-size: 42px;
+  margin: 0 0 16px;
+}
+
+.result-box p {
+  font-size: 26px;
+  font-weight: bold;
+}
