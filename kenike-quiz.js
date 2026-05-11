@@ -9,7 +9,7 @@ const introScreen = document.getElementById("introScreen");
 const quizScreen = document.getElementById("quizScreen");
 const resultScreen = document.getElementById("resultScreen");
 
-const introVideo = document.getElementById("introVideo");
+const introGif = document.getElementById("introGif");
 const modeLabel = document.getElementById("modeLabel");
 const progressText = document.getElementById("progressText");
 const timerText = document.getElementById("timerText");
@@ -110,20 +110,20 @@ function startIntro(mode) {
 
   showScreen(introScreen);
 
-  introVideo.pause();
-  introVideo.currentTime = 0;
+  // GIFを最初から再読み込み
+  introGif.src = "";
+  
+  setTimeout(() => {
+    introGif.src = "images/IMG_7086.GIF";
+  }, 10);
 
-  introVideo.onended = () => {
+  // GIF終了後にクイズ開始
+  setTimeout(() => {
     startQuiz(mode);
-  };
-
-  introVideo.play().catch((err) => {
-    console.log(err);
-
-    // 動画再生失敗時もクイズ開始
-    startQuiz(mode);
-  });
+  }, 4000);
 }
+
+  
 
 
 
