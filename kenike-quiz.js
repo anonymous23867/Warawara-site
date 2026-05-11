@@ -2,14 +2,14 @@ const TOTAL_QUESTIONS = 15;
 const TIME_ATTACK_SECONDS = 60;
 
 /* GIFの再生時間に合わせて変更 */
-const INTRO_DURATION_MS = 2500;
+const INTRO_DURATION_MS = 3000;
 
 const difficultyScreen = document.getElementById("difficultyScreen");
 const introScreen = document.getElementById("introScreen");
 const quizScreen = document.getElementById("quizScreen");
 const resultScreen = document.getElementById("resultScreen");
 
-const introGif = document.getElementById("introGif");
+const introVideo = document.getElementById("introVideo");
 const modeLabel = document.getElementById("modeLabel");
 const progressText = document.getElementById("progressText");
 const timerText = document.getElementById("timerText");
@@ -110,18 +110,22 @@ function startIntro(mode) {
 
   showScreen(introScreen);
 
-  /*
-    同じGIFを毎回最初から再生させるために読み直す
-  */
-  introGif.src = "";
-  setTimeout(() => {
-    introGif.src = "images/quiz-start.gif";
-  }, 20);
+  introVideo.pause();
+  introVideo.currentTime = 0;
 
-  setTimeout(() => {
+  introVideo.onended = () => {
     startQuiz(mode);
-  }, INTRO_DURATION_MS);
+  };
+
+  introVideo.play().catch((err) => {
+    console.log(err);
+
+    // 動画再生失敗時もクイズ開始
+    startQuiz(mode);
+  });
 }
+
+
 
 function startQuiz(mode) {
   questions = shuffleArray([...quizData[mode]]);
@@ -203,6 +207,8 @@ function selectAnswer(selectedIndex) {
     return;
   }
 
+ 
+
   buttons.forEach((btn, index) => {
     btn.classList.add("disabled");
 
@@ -217,7 +223,9 @@ function selectAnswer(selectedIndex) {
     currentIndex++;
     showQuestion();
   }, 900);
+
 }
+
 
 function startTimer() {
   timerText.textContent = `${timeLeft}秒`;
