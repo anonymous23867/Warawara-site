@@ -210,14 +210,18 @@ function selectAnswer(selectedIndex) {
  
 
   buttons.forEach((btn, index) => {
-    btn.classList.add("disabled");
+  btn.classList.add("disabled");
 
-    if (index === q.answer) {
-      btn.classList.add("correct");
-    } else if (index === selectedIndex) {
-      btn.classList.add("wrong");
-    }
-  });
+  // 正解だけ緑
+  if (index === q.answer) {
+    btn.classList.add("correct");
+  }
+
+  // それ以外は全部赤
+  else {
+    btn.classList.add("wrong");
+  }
+});
 
   setTimeout(() => {
     currentIndex++;
