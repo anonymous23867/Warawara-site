@@ -95,6 +95,9 @@ document.querySelectorAll(".difficulty-buttons button").forEach((btn) => {
 
 backBtn.addEventListener("click", () => {
   stopTimer();
+
+  document.getElementById("siteHeader").style.display = "flex";
+
   showScreen(difficultyScreen);
 });
 
@@ -108,6 +111,9 @@ function showScreen(screen) {
 
 function startIntro(mode) {
   currentMode = mode;
+
+  document.getElementById("siteHeader").style.display = "none";
+  document.getElementById("sideMenu").classList.remove("open");
 
   showScreen(introScreen);
 
