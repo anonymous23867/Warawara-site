@@ -148,18 +148,17 @@ function startQuiz(mode) {
 }
 
 function showQuestion() {
+  if (currentIndex >= questions.length) {
+    showResult();
+    return;
+  }
+
   if (currentMode !== "time" && currentIndex >= TOTAL_QUESTIONS) {
     showResult();
     return;
   }
 
-  if (questions.length === 0) {
-    alert("この難易度に問題がありません。");
-    showScreen(difficultyScreen);
-    return;
-  }
-
-  const q = questions[currentIndex % questions.length];
+  const q = questions[currentIndex];
 
   if (currentMode === "time") {
     progressText.textContent = `${answeredCount}問回答`;
@@ -192,7 +191,7 @@ function showQuestion() {
 }
 
 function selectAnswer(selectedIndex) {
-  const q = questions[currentIndex % questions.length];
+  const q = questions[currentIndex];
   const buttons = document.querySelectorAll(".choice-btn");
 
   answeredCount++;
