@@ -33,9 +33,9 @@ const backBtn = document.getElementById("backBtn");
 const quizData = {
   easy: [
     {
-      question: "これは初級のサンプル問題です。正解はどれ？",
-      media: "images/sample1.jpg",
-      choices: ["A", "B", "C", "D"],
+      question: "日本では2005年頃から出回っていたとされ、日本発祥説が有力視されている、白い顔に不気味な笑みを浮かべた姿が特徴的な「検索してはいけない言葉」は何でしょう？",
+      media: "images/IMG_7026.GIF",
+      choices: ["白い人形", "ジェフザキラー", "白粉", "朱雀丸"],
       answer: 1
     },
     {
@@ -64,9 +64,10 @@ const quizData = {
 
   time: [
     {
-      question: "タイムアタック用の問題です。",
-      choices: ["A", "B", "C", "D"],
-      answer: 0
+      question: "日本では2005年頃から出回っていたとされ、日本発祥説が有力視されている、白い顔に不気味な笑みを浮かべた姿が特徴的な「検索してはいけない言葉」は何でしょう？",
+      media: "images/IMG_7026.GIF",
+      choices: ["白い人形", "ジェフザキラー", "白粉", "朱雀丸"],
+      answer: 1
     },
     {
       question: "1分間、すぐ次の問題に進みます。",
