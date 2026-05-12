@@ -47,9 +47,9 @@ const quizData = {
 
   normal: [
     {
-      question: "これは中級のサンプル問題です。",
-      media: "images/sample2.gif",
-      choices: ["選択肢1", "選択肢2", "選択肢3", "選択肢4"],
+      question: "かつて「グロかな？水死体  ○○県での出来事」というタイトルでヒットした、川に水死体が浮かんでいる動画",
+      media: "images/IMG_7108.jpg",
+      choices: ["山形県での出来事", "山梨県での出来事", "山口県での出来事", "岡山県での出来事"],
       answer: 2
     }
   ],
@@ -70,9 +70,9 @@ const quizData = {
       answer: 1
     },
     {
-      question: "1分間、すぐ次の問題に進みます。",
-      media: "images/sample3.jpg",
-      choices: ["1", "2", "3", "4"],
+      question: "かつて「グロかな？水死体  ○○県での出来事」というタイトルでヒットした、川に水死体が浮かんでいる動画",
+      media: "images/IMG_7108.jpg",
+      choices: ["山形県での出来事", "山梨県での出来事", "山口県での出来事", "岡山県での出来事"],
       answer: 2
     }
   ]
