@@ -38,11 +38,7 @@ const quizData = {
       choices: ["白いヒトガタ", "ジェフザキラー", "白粉", "朱雀丸"],
       answer: 1
     },
-    {
-      question: "画像なしの問題も表示できます。",
-      choices: ["正解", "不正解", "不正解", "不正解"],
-      answer: 0
-    }
+
   ],
 
   normal: [
@@ -56,8 +52,9 @@ const quizData = {
 
   hard: [
     {
-      question: "これは上級のサンプル問題です。",
-      choices: ["A", "B", "C", "D"],
+      question: "かつて検索すると、ゾンビのような見た目をしている映画撮影用の人形の画像がヒットしていたワードは？",
+      media:"images/IMG_7112.jpg",
+      choices: ["メキシコ　人形","adult dolly","隣の家のイザベル","トモミ"],
       answer: 3
     }
   ],
@@ -74,6 +71,12 @@ const quizData = {
       media: "images/IMG_7108.jpg",
       choices: ["福島県での出来事", "広島県での出来事", "山口県での出来事", "岡山県での出来事"],
       answer: 2
+    },
+    {
+      question: "かつて検索すると、ゾンビのような見た目をしている映画撮影用の人形の画像がヒットしていたワードは？",
+      media:"images/IMG_7112.jpg",
+      choices: ["メキシコ　人形","adult dolly","隣の家のイザベル","トモミ"],
+      answer: 3
     }
   ]
 };
