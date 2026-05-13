@@ -124,7 +124,7 @@ function startQuiz(mode) {
     startTimer();
   }
 
-  preloadRandomQuestions(20);
+  preloadRandomQuestions(10);
 　showQuestion();
 }
 
@@ -196,7 +196,7 @@ if (availableQuestions.length === 0) {
     choices.appendChild(btn);
   });
 
-  preloadRandomQuestions(10);
+  preloadRandomQuestions(2);
 }
 
 function selectAnswer(selectedIndex, q) {
