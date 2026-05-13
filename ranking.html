@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>ランキング</title>
+
+  <style>
+    body {
+      background: #111;
+      color: white;
+      font-family: sans-serif;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .ranking-item {
+      border-bottom: 1px solid #444;
+      padding: 10px 0;
+    }
+
+    .rank {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .score {
+      color: #00ff99;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>ランキング</h1>
+
+  <div id="rankingList"></div>
+
+  <script>
+    async function loadRanking() {
+
+      const res = await fetch("/api/ranking");
+
+      const data = await res.json();
+
+      const rankingList =
+        document.getElementById("rankingList");
+
+      rankingList.innerHTML = "";
+
+      data.forEach((player, index) => {
+
+        const div = document.createElement("div");
+
+        div.className = "ranking-item";
+
+        div.innerHTML = `
+          <div class="rank">
+            #${index + 1}
+            ${player.name}
+          </div>
+
+          <div class="score">
+            スコア: ${player.score}
+          </div>
+
+          <div>
+            ${player.correct}/${player.answered}
+            正答率 ${player.accuracy}%
+          </div>
+        `;
+
+        rankingList.appendChild(div);
+      });
+    }
+
+    loadRanking();
+  </script>
+
+</body>
+</html>
