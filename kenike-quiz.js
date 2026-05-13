@@ -333,3 +333,79 @@ function shuffleArray(array) {
 
   return array;
 }
+
+function generateUserId() {
+  return "usr_" + crypto.randomUUID().replace(/-/g, "");
+}
+
+function generateRandomName(length = 5) {
+  const chars =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+
+  let name = "";
+
+  for (let i = 0; i < length; i++) {
+    name += chars[Math.floor(Math.random() * chars.length)];
+  }
+
+  return name;
+}
+
+function getUserData() {
+  let userId = localStorage.getItem("quizUserId");
+  let playerName = localStorage.getItem("quizPlayerName");
+
+  // ユーザーID生成
+  if (!userId) {
+    userId = generateUserId();
+    localStorage.setItem("quizUserId", userId);
+  }
+
+  // 名前生成
+  if (!playerName) {
+    playerName = generateRandomName(5);
+    localStorage.setItem("quizPlayerName", playerName);
+  }
+
+  return {
+    userId,
+    playerName
+  };
+}
+
+async function saveTimeAttackRanking(
+  score,
+  correct,
+  answered,
+  accuracy
+) {
+  const userData = getUserData();
+
+  const data = {
+    userId: userData.userId,
+    name: userData.playerName,
+    score,
+    correct,
+    answered,
+    accuracy: Math.round(accuracy * 100)
+  };
+
+  await fetch("/api/ranking", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(data)
+  });
+}
+
+function changePlayerName(newName) {
+  const trimmed = newName.trim();
+
+  if (!trimmed) return;
+
+  localStorage.setItem(
+    "quizPlayerName",
+    trimmed.slice(0, 12)
+  );
+}
