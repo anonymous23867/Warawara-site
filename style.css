@@ -224,7 +224,8 @@ body {
 }
 
 .difficulty-buttons button,
-#backBtn {
+#backBtn,
+ #rankingBtn{
   font-size: 22px;
   padding: 16px;
   border: none;
@@ -234,7 +235,8 @@ body {
 }
 
 .difficulty-buttons button:active,
-#backBtn:active {
+#backBtn:active,
+#rankingBtn:active {
   transform: scale(0.96);
 }
 
@@ -449,4 +451,34 @@ body {
 
 .side-menu a:active {
   background: #333;
+}
+
+#my-rank {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+
+  background: rgba(15, 15, 15, 0.95);
+  border-top: 2px solid #00ff99;
+
+  padding: 14px 12px;
+
+  font-size: 18px;
+  font-weight: bold;
+
+  color: white;
+
+  z-index: 9999;
+
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+
+  flex-wrap: wrap;
+}
+.result-box button {
+  display: block;
+  width: 100%;
+  margin-top: 14px;
 }

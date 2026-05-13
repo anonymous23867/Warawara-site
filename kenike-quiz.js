@@ -69,6 +69,12 @@ backBtn.addEventListener("click", () => {
   showScreen(difficultyScreen);
 });
 
+const rankingBtn = document.getElementById("rankingBtn");
+
+rankingBtn.addEventListener("click", () => {
+  window.location.href = "ranking.html";
+});
+
 function showScreen(screen) {
   document.querySelectorAll(".quiz-screen").forEach((s) => {
     s.classList.remove("active");
@@ -270,8 +276,10 @@ function showResult() {
 
   const rate = Math.round(accuracy * 100);
 
-  // タイムアタックのみスコア計算
+  // タイムアタックのみランキングボタン表示
   if (currentMode === "time") {
+
+    rankingBtn.style.display = "block";
 
     const score = Math.floor(
       correctCount * accuracy * accuracy * 100
@@ -280,16 +288,19 @@ function showResult() {
     resultScore.textContent = `スコア ${score}`;
     resultRate.textContent =
       `${correctCount} / ${total} （正答率 ${rate}%）`;
-      saveTimeAttackRanking(
-  score,
-  correctCount,
-  total,
-  accuracy
-);
+
+    saveTimeAttackRanking(
+      score,
+      correctCount,
+      total,
+      accuracy
+    );
 
   } else {
 
-    // 通常モード
+    // 通常モードでは非表示
+    rankingBtn.style.display = "none";
+
     resultScore.textContent =
       `${correctCount} / ${total}`;
 
@@ -299,6 +310,7 @@ function showResult() {
 
   showScreen(resultScreen);
 }
+
 function getModeName(mode) {
   if (mode === "easy") return "初級";
   if (mode === "normal") return "中級";
