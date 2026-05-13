@@ -29,111 +29,21 @@ const backBtn = document.getElementById("backBtn");
   media: "images/sample.jpg"
   media: "images/sample.gif"
 */
+window.quizDataParts = window.quizDataParts || {};
+const easyQuestions = window.quizDataParts.easy || [];
+const normalQuestions = window.quizDataParts.normal || [];
+const hardQuestions = window.quizDataParts.hard || [];
 
 const quizData = {
-  easy: [
-    {
-      question: "日本では2005年頃から出回っていたとされ、日本発祥説が有力視されている、白い顔に不気味な笑みを浮かべた画像がヒットするワードは？",
-      media: "images/IMG_6940.jpg",
-      choices: ["白いヒトガタ", "ジェフザキラー", "白粉", "朱雀丸"],
-      answer: 1
-    },
-    {
-      question: "検索すると、オーストリアのエッツ渓谷で見つかったいわくつきミイラについてヒットするワードは？",
-      choices: ["シーウィー", "ロザリア・ロンバルド", "アイスマン", "マネネ　儀式"],
-      answer: 2
-    },
-    {
-      question: "かつて検索すると、マーキー、ブリンクなどを多用した埼玉県に実在する病院の派手なウェブサイトがヒットしたワードは？",
-      media: "images/IMG_7183.JPG",
-      choices: ["松山　ドクハラ", "みるく", "実方眼科医院", "愛生会病院"],
-      answer: 3
-    },
-     {
-      question: "検索すると、脳みそのように丸いのがいっぱい詰まっているトマトの画像がヒットするワードは？",
-      media: "images/IMG_7190.JPG",
-      choices: ["熊本　トマト　断面", "愛知　トマト　断面", "北海道　トマト　断面", "茨城　トマト　断面"],
-      answer: 1
-    },
-    {
-      question: "検索すると、未女子日記という人物が運営する電波系サイトがヒットするワードは？",
-      choices: ["愛の妖精ぷりんてぃん", "死んで無になる５秒前", "おみずの十電波", "えんじぇるぱーく武蔵"],
-      answer: 0
-    },
-
-  ],
-
-  normal: [
-    {
-      question: "かつて「グロかな？水死体  ○○県での出来事」というタイトルで投稿された、川に水死体が浮かんでいる動画がヒットしたワードは？",
-      media: "images/IMG_7108.jpg",
-      choices: ["福島県での出来事", "広島県での出来事", "山口県での出来事", "岡山県での出来事"],
-      answer: 2
-    },
-     {
-      question: "検索すると、広島の地下アイドルグループのメンバーが、口に入れた食べ物をファンの口の中に吐き出す動画がヒットするワードは？",
-      choices: ["アイドル　スイカ", "口移し　アイドル", "アイドル　子育て", "アイドル　毒霧"],
-      answer: 0
-    },
-  ],
-
-  hard: [
-    {
-      question: "かつて検索すると、ゾンビのような見た目をしている映画撮影用の人形の画像がヒットしていたワードは？",
-      media:"images/IMG_7112.jpg",
-      choices: ["メキシコ　人形","adult dolly","隣の家のイザベル","トモミ"],
-      answer: 3
-    }
-  ],
-
+  easy: easyQuestions,
+  normal: normalQuestions,
+  hard: hardQuestions,
   time: [
-    {
-      question: "日本では2005年頃から出回っていたとされ、日本発祥説が有力視されている、白い顔に不気味な笑みを浮かべた画像がヒットするワードは？",
-      media: "images/IMG_6940.jpg",
-      choices: ["白いヒトガタ", "ジェフザキラー", "白粉", "朱雀丸"],
-      answer: 1
-    },
-    {
-      question: "かつて「グロかな？水死体  ○○県での出来事」というタイトルで投稿された、川に水死体が浮かんでいる動画がヒットしたワードは？",
-      media: "images/IMG_7108.jpg",
-      choices: ["福島県での出来事", "広島県での出来事", "山口県での出来事", "岡山県での出来事"],
-      answer: 2
-    },
-    {
-      question: "かつて検索すると、ゾンビのような見た目をしている映画撮影用の人形の画像がヒットしていたワードは？",
-      media:"images/IMG_7112.jpg",
-      choices: ["メキシコ　人形","adult dolly","隣の家のイザベル","トモミ"],
-      answer: 3
-    },
-    {
-      question: "検索すると、オーストリアのエッツ渓谷で見つかったいわくつきミイラについてヒットするワードは？",
-      choices: ["シーウィー", "ロザリア・ロンバルド", "アイスマン", "マネネ　儀式"],
-      answer: 2
-    },
-    {
-      question: "かつて検索すると、マーキー、ブリンクなどを多用した埼玉県に実在する病院の派手なウェブサイトがヒットしたワードは？",
-      media: "images/IMG_7183.JPG",
-      choices: ["松山　ドクハラ", "みるく", "実方眼科医院", "愛生会病院"],
-      answer: 3
-    },
-     {
-      question: "検索すると、脳みそのように丸いのがいっぱい詰まっているトマトの画像がヒットするワードは？",
-      media: "images/IMG_7190.JPG",
-      choices: ["熊本　トマト　断面", "愛知　トマト　断面", "北海道　トマト　断面", "茨城　トマト　断面"],
-      answer: 1
-    },
-    {
-      question: "検索すると、広島の地下アイドルグループのメンバーが、口に入れた食べ物をファンの口の中に吐き出す動画がヒットするワードは？",
-      choices: ["アイドル　スイカ", "口移し　アイドル", "アイドル　子育て", "アイドル　毒霧"],
-      answer: 0
-    },
-     {
-      question: "検索すると、未女子日記という人物が運営する電波系サイトがヒットするワードは？",
-      choices: ["愛の妖精ぷりんてぃん", "死んで無になる５秒前", "おみずの十電波", "えんじぇるぱーく武蔵"],
-      answer: 0
-    },
-
+    ...easyQuestions,
+    ...normalQuestions,
+    ...hardQuestions
   ]
+
 };
 
 let currentMode = "";
@@ -219,7 +129,9 @@ function startQuiz(mode) {
 }
 
 function showQuestion() {
-  if (currentMode !== "time" && answeredCount >= TOTAL_QUESTIONS) {
+ const maxQuestions = Math.min(TOTAL_QUESTIONS, questions.length);
+
+if (currentMode !== "time" && answeredCount >= maxQuestions) {
   showResult();
   return;
 }
@@ -258,7 +170,7 @@ if (availableQuestions.length === 0) {
   if (currentMode === "time") {
     progressText.textContent = `${answeredCount}問回答`;
   } else {
-    progressText.textContent = `${answeredCount + 1} / ${TOTAL_QUESTIONS}`;
+    progressText.textContent = `${answeredCount + 1} / ${maxQuestions}`;
   }
 
   questionText.textContent = q.question;
