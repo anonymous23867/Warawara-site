@@ -13,4 +13,10 @@ window.quizDataParts.normal.push(
       choices: ["アイドル　スイカ", "口移し　アイドル", "アイドル　子育て", "アイドル　毒霧"],
       answer: 0
     },
+    {
+      question:"検索すると、体にある目玉のような模様が特徴的な蛾の画像がヒットするワードは？",
+      media:"images/IMG_7202.JPG",
+      choices: ["ヨナグニサン", "アケビコノハ", "白死蝶", "クロスジヒトリ"],
+      answer: 1
+    },
 );
