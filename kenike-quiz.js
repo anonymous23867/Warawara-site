@@ -280,6 +280,12 @@ function showResult() {
     resultScore.textContent = `スコア ${score}`;
     resultRate.textContent =
       `${correctCount} / ${total} （正答率 ${rate}%）`;
+      saveTimeAttackRanking(
+  score,
+  correctCount,
+  total,
+  accuracy
+);
 
   } else {
 
