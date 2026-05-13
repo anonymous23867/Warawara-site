@@ -193,7 +193,12 @@ function startIntro(mode) {
 
 
 function startQuiz(mode) {
-  questions = shuffleArray([...quizData[mode]]);
+ questions = shuffleArray(
+  quizData[mode].map(q => ({
+    ...q,
+    used: false
+  }))
+);
 
   currentIndex = 0;
   correctCount = 0;
