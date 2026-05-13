@@ -209,26 +209,51 @@ function startQuiz(mode) {
     startTimer();
   }
 
-  showQuestion();
+  preloadRandomQuestions(20);
+　showQuestion();
 }
 
 function showQuestion() {
-  if (currentIndex >= questions.length) {
-    showResult();
-    return;
-  }
+  if (currentMode !== "time" && answeredCount >= TOTAL_QUESTIONS) {
+  showResult();
+  return;
+}
 
-  if (currentMode !== "time" && currentIndex >= TOTAL_QUESTIONS) {
-    showResult();
-    return;
-  }
+if (currentMode === "time" && answeredCount >= questions.length) {
+  showResult();
+  return;
+}
 
-  const q = questions[currentIndex];
+  // 読み込み済み or 画像なし問題だけ抽出
+  const remainingQuestions = questions.filter(q => !q.used);
+
+const availableQuestions = remainingQuestions.filter(q => {
+  return !q.media || imageCache.has(q.media);
+});
+
+// もう出題できる問題自体がない
+if (remainingQuestions.length === 0) {
+  showResult();
+  return;
+}
+
+// まだ読み込み待ち
+if (availableQuestions.length === 0) {
+  setTimeout(showQuestion, 100);
+  return;
+}
+
+  // ランダム出題
+  const q = availableQuestions[
+    Math.floor(Math.random() * availableQuestions.length)
+  ];
+
+  q.used = true;
 
   if (currentMode === "time") {
     progressText.textContent = `${answeredCount}問回答`;
   } else {
-    progressText.textContent = `${currentIndex + 1} / ${TOTAL_QUESTIONS}`;
+    progressText.textContent = `${answeredCount + 1} / ${TOTAL_QUESTIONS}`;
   }
 
   questionText.textContent = q.question;
@@ -248,15 +273,16 @@ function showQuestion() {
     btn.textContent = choice;
 
     btn.addEventListener("click", () => {
-      selectAnswer(index);
+      selectAnswer(index, q);
     });
 
     choices.appendChild(btn);
   });
+
+  preloadRandomQuestions(10);
 }
 
-function selectAnswer(selectedIndex) {
-  const q = questions[currentIndex];
+function selectAnswer(selectedIndex, q) {
   const buttons = document.querySelectorAll(".choice-btn");
 
   answeredCount++;
@@ -266,12 +292,9 @@ function selectAnswer(selectedIndex) {
   }
 
   if (currentMode === "time") {
-    currentIndex++;
     showQuestion();
     return;
   }
-
- 
 
   buttons.forEach((btn, index) => {
   btn.classList.add("disabled");
@@ -288,11 +311,12 @@ function selectAnswer(selectedIndex) {
 });
 
   setTimeout(() => {
-    currentIndex++;
     showQuestion();
   }, 900);
 
 }
+
+
 
 
 function startTimer() {
@@ -334,6 +358,28 @@ function getModeName(mode) {
   if (mode === "hard") return "上級";
   if (mode === "time") return "タイムアタック";
   return "";
+}
+
+const imageCache = new Set();
+
+function preloadRandomQuestions(count = 15) {
+  const candidates = questions
+    .filter(q => q.media && !imageCache.has(q.media))
+    .sort(() => Math.random() - 0.5);
+
+  candidates.slice(0, count).forEach(q => {
+    const img = new Image();
+
+    img.onload = () => {
+      imageCache.add(q.media);
+    };
+
+    img.onerror = () => {
+      imageCache.add(q.media);
+    };
+
+    img.src = q.media;
+  });
 }
 
 function shuffleArray(array) {
