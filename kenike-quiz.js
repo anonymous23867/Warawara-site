@@ -260,15 +260,39 @@ function stopTimer() {
 function showResult() {
   stopTimer();
 
-  const total = currentMode === "time" ? answeredCount : TOTAL_QUESTIONS;
-  const rate = total === 0 ? 0 : Math.round((correctCount / total) * 100);
+  const total = currentMode === "time"
+    ? answeredCount
+    : TOTAL_QUESTIONS;
 
-  resultScore.textContent = `${correctCount} / ${total}`;
-  resultRate.textContent = `正答率 ${rate}%`;
+  const accuracy = total === 0
+    ? 0
+    : correctCount / total;
+
+  const rate = Math.round(accuracy * 100);
+
+  // タイムアタックのみスコア計算
+  if (currentMode === "time") {
+
+    const score = Math.floor(
+      correctCount * accuracy * accuracy * 100
+    );
+
+    resultScore.textContent = `スコア ${score}`;
+    resultRate.textContent =
+      `${correctCount} / ${total} （正答率 ${rate}%）`;
+
+  } else {
+
+    // 通常モード
+    resultScore.textContent =
+      `${correctCount} / ${total}`;
+
+    resultRate.textContent =
+      `正答率 ${rate}%`;
+  }
 
   showScreen(resultScreen);
 }
-
 function getModeName(mode) {
   if (mode === "easy") return "初級";
   if (mode === "normal") return "中級";

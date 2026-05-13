@@ -3,6 +3,7 @@ window.quizDataParts.easy = window.quizDataParts.easy || [];
 
 window.quizDataParts.easy.push(
    {
+     id:"easy-001-001",
      question: "日本では2005年頃から出回っていたとされ、日本発祥説が有力視されている、白い顔に不気味な笑みを浮かべた画像がヒットするワードは？",
       media: "images/IMG_6940.jpg",
       choices: ["白いヒトガタ", "ジェフザキラー", "白粉", "朱雀丸"],
