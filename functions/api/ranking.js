@@ -62,6 +62,7 @@ export async function onRequestGet(context) {
 
   const result = await env.DB.prepare(`
     SELECT
+      user_id,
       name,
       score,
       correct,

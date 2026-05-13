@@ -10,6 +10,7 @@
       color: white;
       font-family: sans-serif;
       padding: 20px;
+      padding-bottom: 100px;
     }
 
     h1 {
@@ -29,6 +30,19 @@
     .score {
       color: #00ff99;
     }
+
+    #myRankBox {
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      background: #222;
+      border-top: 2px solid #00ff99;
+      padding: 12px;
+      box-sizing: border-box;
+      text-align: center;
+      z-index: 999;
+    }
   </style>
 </head>
 
@@ -38,42 +52,61 @@
 
   <div id="rankingList"></div>
 
+  <div id="myRankBox">
+    あなたの順位を読み込み中...
+  </div>
+
   <script>
     async function loadRanking() {
-
       const res = await fetch("/api/ranking");
-
       const data = await res.json();
 
-      const rankingList =
-        document.getElementById("rankingList");
+      const rankingList = document.getElementById("rankingList");
+      const myRankBox = document.getElementById("myRankBox");
+
+      const myUserId = localStorage.getItem("quizUserId");
 
       rankingList.innerHTML = "";
 
       data.forEach((player, index) => {
-
         const div = document.createElement("div");
-
         div.className = "ranking-item";
 
         div.innerHTML = `
           <div class="rank">
-            #${index + 1}
-            ${player.name}
+            ${index + 1}位　${player.name}
           </div>
 
           <div class="score">
-            スコア: ${player.score}
+            スコア：${player.score}
           </div>
 
           <div>
-            ${player.correct}/${player.answered}
-            正答率 ${player.accuracy}%
+            問題数：${player.answered}問　
+            正答率：${player.accuracy}%
           </div>
         `;
 
         rankingList.appendChild(div);
       });
+
+      const myIndex = data.findIndex(player => {
+        return player.user_id === myUserId;
+      });
+
+      if (myIndex !== -1) {
+        const me = data[myIndex];
+
+        myRankBox.innerHTML = `
+          あなたの順位：${myIndex + 1}位　
+          スコア：${me.score}　
+          問題数：${me.answered}問　
+          正答率：${me.accuracy}%
+        `;
+      } else {
+        myRankBox.textContent =
+          "あなたの順位：まだランキングに登録されていません";
+      }
     }
 
     loadRanking();
