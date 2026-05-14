@@ -416,7 +416,6 @@ body {
   left: 0;
 
   width: clamp(220px, 72vw, 320px);
-
   height: calc(100dvh - 64px);
 
   background: rgba(0, 0, 0, 0.96);
@@ -429,10 +428,13 @@ body {
   overflow-y: auto;
   overflow-x: hidden;
 
-  padding: 18px 0 30px;
+  padding: 18px 18px 30px;
+
+  box-sizing: border-box;
 
   -webkit-overflow-scrolling: touch;
 }
+
 
 .side-menu.open {
   transform: translateX(0);
@@ -443,32 +445,29 @@ body {
   flex-direction: column;
 }
 
+
 .side-menu a {
   display: block;
-
   width: 100%;
-
-  padding: 16px 18px;
-
+  
+  padding: 16px 0; /* 左右paddingをside-menu側に任せる */
+  
   color: white;
   text-decoration: none;
-
   font-size: clamp(16px, 4.5vw, 20px);
-
   border-bottom: 1px solid rgba(255,255,255,0.1);
-
-  white-space: normal;
-  overflow-wrap: anywhere;
+  
+  /* overflow-wrap: anywhere; は削除 */
+  word-break: break-all; /* 長い文字列の折り返し */
+  
+  box-sizing: border-box;
+  max-width: 100%; /* 親の幅を超えない */
 }
 
 .menu-category {
+  padding: 0; /* side-menuのpaddingに任せる */
   margin: 18px 0 8px;
-
-  padding: 0 18px;
-
   font-size: clamp(12px, 3vw, 14px);
-
   font-weight: bold;
-
   color: #aaa;
 }
