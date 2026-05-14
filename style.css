@@ -224,8 +224,7 @@ body {
 }
 
 .difficulty-buttons button,
-#backBtn,
- #rankingBtn{
+#backBtn {
   font-size: 22px;
   padding: 16px;
   border: none;
@@ -235,8 +234,7 @@ body {
 }
 
 .difficulty-buttons button:active,
-#backBtn:active,
-#rankingBtn:active {
+#backBtn:active {
   transform: scale(0.96);
 }
 
@@ -374,77 +372,51 @@ body {
    ハンバーガーメニュー
 ========================= */
 
+/* =========================
+   ハンバーガーメニュー
+========================= */
+
 .site-header {
   position: fixed;
   top: 0;
   left: 0;
-
   width: 100%;
   height: 64px;
-
   background: rgba(0, 0, 0, 0.92);
-
   display: flex;
   align-items: center;
-
   z-index: 5000;
-
   border-bottom: 1px solid rgba(255,255,255,0.1);
 }
 
 .menu-button {
   width: 64px;
   height: 64px;
-
   border: none;
   background: transparent;
-
   color: white;
   font-size: 34px;
-
   cursor: pointer;
-
-  touch-action: manipulation;
 }
 
-.site-title {
-  color: white;
-  font-size: 20px;
-  letter-spacing: 2px;
+.side-menu {
+  position: fixed;
+  top: 64px;
+  left: 0;
+  width: 260px;
+  max-width: 80vw;
+  height: calc(100vh - 64px);
+  background: rgba(0, 0, 0, 0.96);
+  transform: translateX(-100%);
+  transition: transform 0.25s ease;
+  z-index: 4999;
+  padding-top: 20px;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .side-menu.open {
   transform: translateX(0);
-}
-
-
-
-.side-menu a {
-  color: white;
-  text-decoration: none;
-
-  padding: 16px 18px;
-
-  font-size: clamp(16px, 4vw, 18px);
-
-  border-bottom: 1px solid rgba(255,255,255,0.1);
-
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.menu-category {
-  margin: 18px 0 8px;
-  padding: 0 16px;
-
-  font-size: 12px;
-
-  font-weight: bold;
-  color: #777;
 }
 
 .menu-section {
@@ -452,41 +424,25 @@ body {
   flex-direction: column;
 }
 
-body {
-  overflow-x: hidden;
-}
-
-.side-menu {
-  -webkit-overflow-scrolling: touch;
-}
-
 .side-menu a {
+  display: block;
+  width: 100%;
+  padding: 16px 18px;
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+
+  white-space: normal;
   word-break: keep-all;
+  overflow-wrap: break-word;
+  box-sizing: border-box;
 }
-.side-menu {
-  position: fixed;
-  top: 64px;
-  left: 0;
 
-  width: min(72vw, 260px);
-  max-width: 72vw;
-
-  height: calc(100vh - 64px);
-
-  background: rgba(0, 0, 0, 0.96);
-
-  transform: translateX(-100%);
-  transition: transform 0.25s ease;
-
-  z-index: 4999;
-
-  display: flex;
-  flex-direction: column;
-
-  padding-top: 20px;
-
-  overflow-y: auto;
-  overflow-x: hidden;
-
-  -webkit-overflow-scrolling: touch;
+.menu-category {
+  margin: 18px 0 8px;
+  padding: 0 18px;
+  font-size: 13px;
+  font-weight: bold;
+  color: #aaa;
 }
