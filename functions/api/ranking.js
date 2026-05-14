@@ -17,6 +17,20 @@ export async function onRequestPost(context) {
     );
   }
 
+  const existing = await env.DB.prepare(`
+    SELECT score
+    FROM rankings
+    WHERE user_id = ?
+  `).bind(userId).first();
+
+  if (existing && score <= existing.score) {
+    return Response.json({
+      ok: true,
+      saved: false,
+      message: "ランキング更新なし"
+    });
+  }
+
   await env.DB.prepare(`
     INSERT INTO rankings (
       user_id,
@@ -31,37 +45,12 @@ export async function onRequestPost(context) {
 
     ON CONFLICT(user_id)
     DO UPDATE SET
-      name = rankings.name,
-
-      score = CASE
-        WHEN excluded.score > rankings.score
-        THEN excluded.score
-        ELSE rankings.score
-      END,
-
-      correct = CASE
-        WHEN excluded.score > rankings.score
-        THEN excluded.correct
-        ELSE rankings.correct
-      END,
-
-      answered = CASE
-        WHEN excluded.score > rankings.score
-        THEN excluded.answered
-        ELSE rankings.answered
-      END,
-
-      accuracy = CASE
-        WHEN excluded.score > rankings.score
-        THEN excluded.accuracy
-        ELSE rankings.accuracy
-      END,
-
-      updated_at = CASE
-        WHEN excluded.score > rankings.score
-        THEN CURRENT_TIMESTAMP
-        ELSE rankings.updated_at
-      END
+      name = excluded.name,
+      score = excluded.score,
+      correct = excluded.correct,
+      answered = excluded.answered,
+      accuracy = excluded.accuracy,
+      updated_at = CURRENT_TIMESTAMP
   `)
     .bind(
       userId,
@@ -73,7 +62,11 @@ export async function onRequestPost(context) {
     )
     .run();
 
-  return Response.json({ ok: true });
+  return Response.json({
+    ok: true,
+    saved: true,
+    message: "ランキング更新"
+  });
 }
 
 export async function onRequestGet(context) {
