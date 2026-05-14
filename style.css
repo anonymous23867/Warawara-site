@@ -223,7 +223,8 @@ body {
 }
 
 .difficulty-buttons button,
-#backBtn {
+#backBtn,
+#rankingBtn {
   font-size: 22px;
   padding: 16px;
   border: none;
@@ -448,4 +449,15 @@ body {
   font-size: 14px;
   font-weight: bold;
   color: #aaa;
+}
+
+.result-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 24px;
+}
+
+.result-buttons button {
+  width: 100%;
 }
