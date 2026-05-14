@@ -411,29 +411,28 @@ body {
 
 .side-menu {
   position: fixed;
-
   top: 64px;
   left: 0;
-
   width: clamp(220px, 72vw, 320px);
+  height: calc(100vh - 64px);
   height: calc(100dvh - 64px);
-
   background: rgba(0, 0, 0, 0.96);
-
   transform: translateX(-100%);
   transition: transform 0.25s ease;
-
   z-index: 4999;
-
   overflow-y: auto;
   overflow-x: hidden;
-
-  padding: 18px 18px 30px;
-
   box-sizing: border-box;
-
   -webkit-overflow-scrolling: touch;
+  /* paddingをここから削除 */
 }
+
+.side-menu-inner {
+  padding: 18px 18px 30px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
 
 
 .side-menu.open {
