@@ -14,7 +14,6 @@ body {
 
   touch-action: manipulation;
   overscroll-behavior: none;
-  overflow: hidden;
 }
 
 body {
@@ -25,7 +24,7 @@ body {
 
 main {
   width: 100%;
-  height: 100vh;
+  height: 100dvh;
 
   display: flex;
   flex-direction: column;
@@ -182,7 +181,6 @@ body {
   touch-action: manipulation;
   overscroll-behavior: none;
 
-  overflow: hidden;
 
   -webkit-user-select: none;
   user-select: none;
@@ -380,39 +378,60 @@ body {
   position: fixed;
   top: 0;
   left: 0;
+
   width: 100%;
   height: 64px;
+
   background: rgba(0, 0, 0, 0.92);
+
   display: flex;
   align-items: center;
+
   z-index: 5000;
+
   border-bottom: 1px solid rgba(255,255,255,0.1);
+
+  box-sizing: border-box;
 }
 
 .menu-button {
   width: 64px;
   height: 64px;
+
   border: none;
   background: transparent;
+
   color: white;
   font-size: 34px;
+
   cursor: pointer;
+
+  flex-shrink: 0;
 }
 
 .side-menu {
   position: fixed;
+
   top: 64px;
   left: 0;
-  width: 260px;
-  max-width: 80vw;
-  height: calc(100vh - 64px);
+
+  width: clamp(220px, 72vw, 320px);
+
+  height: calc(100dvh - 64px);
+
   background: rgba(0, 0, 0, 0.96);
+
   transform: translateX(-100%);
   transition: transform 0.25s ease;
+
   z-index: 4999;
-  padding-top: 20px;
+
   overflow-y: auto;
   overflow-x: hidden;
+
+  padding: 18px 0 30px;
+
+  -webkit-overflow-scrolling: touch;
 }
 
 .side-menu.open {
@@ -426,37 +445,30 @@ body {
 
 .side-menu a {
   display: block;
+
   width: 100%;
+
   padding: 16px 18px;
+
   color: white;
   text-decoration: none;
-  font-size: 18px;
+
+  font-size: clamp(16px, 4.5vw, 20px);
+
   border-bottom: 1px solid rgba(255,255,255,0.1);
 
   white-space: normal;
-  word-break: keep-all;
-  overflow-wrap: break-word;
-  box-sizing: border-box;
+  overflow-wrap: anywhere;
 }
 
 .menu-category {
   margin: 18px 0 8px;
+
   padding: 0 18px;
-  font-size: 13px;
+
+  font-size: clamp(12px, 3vw, 14px);
+
   font-weight: bold;
+
   color: #aaa;
-}
-
-.side-menu {
-  display: block;
-}
-
-.side-menu a {
-  display: block;
-  width: 100%;
-}
-
-.menu-category {
-  display: block;
-  width: 100%;
 }
