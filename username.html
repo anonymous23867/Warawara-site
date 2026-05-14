@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ユーザー名変更</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <main class="kenike-quiz-page">
+    <h1>ユーザー名変更</h1>
+
+    <p>10文字以内で入力してください。</p>
+
+    <input
+      id="nameInput"
+      type="text"
+      maxlength="10"
+      placeholder="新しい名前"
+    >
+
+    <button id="saveNameButton">変更する</button>
+
+    <p id="message"></p>
+
+    <a href="index.html">トップに戻る</a>
+  </main>
+
+  <script>
+    const nameInput = document.getElementById("nameInput");
+    const saveNameButton = document.getElementById("saveNameButton");
+    const message = document.getElementById("message");
+
+    const currentName = localStorage.getItem("playerName");
+    if (currentName) {
+      nameInput.value = currentName;
+    }
+
+    function getUserId() {
+      let userId = localStorage.getItem("userId");
+
+      if (!userId) {
+        userId = "usr_" + crypto.randomUUID().replaceAll("-", "");
+        localStorage.setItem("userId", userId);
+      }
+
+      return userId;
+    }
+
+    saveNameButton.addEventListener("click", async () => {
+      const name = nameInput.value.trim();
+
+      if (!name) {
+        message.textContent = "名前を入力してください。";
+        return;
+      }
+
+      if (name.length > 10) {
+        message.textContent = "名前は10文字以内にしてください。";
+        return;
+      }
+
+      const userId = getUserId();
+
+      localStorage.setItem("playerName", name);
+
+      const res = await fetch("/api/update-name", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          userId,
+          name
+        })
+      });
+
+      if (res.ok) {
+        message.textContent = "ユーザー名を変更しました🙌";
+      } else {
+        message.textContent = "変更に失敗しました。";
+      }
+    });
+  </script>
+
+</body>
+</html>
