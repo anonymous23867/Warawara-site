@@ -482,3 +482,15 @@ body {
   width: 100%;
   margin-top: 14px;
 }
+
+.menu-category {
+  margin: 18px 0 8px;
+  padding: 0 16px;
+  font-size: 13px;
+  font-weight: bold;
+  color: #777;
+}
+
+.menu-section a {
+  display: block;
+}
