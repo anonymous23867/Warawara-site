@@ -446,3 +446,17 @@ body {
   font-weight: bold;
   color: #aaa;
 }
+
+.side-menu {
+  display: block;
+}
+
+.side-menu a {
+  display: block;
+  width: 100%;
+}
+
+.menu-category {
+  display: block;
+  width: 100%;
+}
