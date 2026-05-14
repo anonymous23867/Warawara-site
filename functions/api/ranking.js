@@ -31,7 +31,7 @@ export async function onRequestPost(context) {
 
     ON CONFLICT(user_id)
     DO UPDATE SET
-      name = excluded.name,
+      name = rankings.name,
 
       score = CASE
         WHEN excluded.score > rankings.score
