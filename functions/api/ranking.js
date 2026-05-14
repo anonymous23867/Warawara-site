@@ -24,6 +24,12 @@ export async function onRequestPost(context) {
   `).bind(userId).first();
 
   if (existing && score <= existing.score) {
+    await env.DB.prepare(`
+      UPDATE rankings
+      SET last_seen_at = CURRENT_TIMESTAMP
+      WHERE user_id = ?
+    `).bind(userId).run();
+
     return Response.json({
       ok: true,
       saved: false,
@@ -39,9 +45,10 @@ export async function onRequestPost(context) {
       correct,
       answered,
       accuracy,
-      updated_at
+      updated_at,
+      last_seen_at
     )
-    VALUES (?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)
+    VALUES (?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
 
     ON CONFLICT(user_id)
     DO UPDATE SET
@@ -50,7 +57,8 @@ export async function onRequestPost(context) {
       correct = excluded.correct,
       answered = excluded.answered,
       accuracy = excluded.accuracy,
-      updated_at = CURRENT_TIMESTAMP
+      updated_at = CURRENT_TIMESTAMP,
+      last_seen_at = CURRENT_TIMESTAMP
   `)
     .bind(
       userId,
@@ -71,6 +79,12 @@ export async function onRequestPost(context) {
 
 export async function onRequestGet(context) {
   const { env } = context;
+
+  await env.DB.prepare(`
+    DELETE FROM rankings
+    WHERE last_seen_at IS NOT NULL
+      AND last_seen_at < datetime('now', '-90 days')
+  `).run();
 
   const result = await env.DB.prepare(`
     SELECT
