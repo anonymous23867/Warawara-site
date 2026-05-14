@@ -32,17 +32,17 @@
     const saveNameButton = document.getElementById("saveNameButton");
     const message = document.getElementById("message");
 
-    const currentName = localStorage.getItem("playerName");
+   const currentName = localStorage.getItem("quizPlayerName");
     if (currentName) {
       nameInput.value = currentName;
     }
 
     function getUserId() {
-      let userId = localStorage.getItem("userId");
+     let userId = localStorage.getItem("quizUserId");
 
       if (!userId) {
         userId = "usr_" + crypto.randomUUID().replaceAll("-", "");
-        localStorage.setItem("userId", userId);
+        localStorage.setItem("quizUserId", userId);
       }
 
       return userId;
@@ -63,7 +63,7 @@
 
       const userId = getUserId();
 
-      localStorage.setItem("playerName", name);
+      localStorage.setItem("quizPlayerName", name);
 
       const res = await fetch("/api/update-name", {
         method: "POST",
