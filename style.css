@@ -461,3 +461,46 @@ body {
 .result-buttons button {
   width: 100%;
 }
+
+.history-page {
+  padding: 20px;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.history-item {
+  background: #fff;
+  border-radius: 12px;
+  padding: 14px;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.history-question {
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.history-result {
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.history-result.correct {
+  color: #008000;
+}
+
+.history-result.wrong {
+  color: #d00000;
+}
+
+.history-time {
+  font-size: 12px;
+  color: #777;
+}
+
+.back-link {
+  color: inherit;
+  text-decoration: none;
+  font-weight: bold;
+}

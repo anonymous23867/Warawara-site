@@ -427,3 +427,14 @@ function changePlayerName(newName) {
     trimmed.slice(0, 12)
   );
 }
+
+await fetch("/api/save-history", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({
+    userId,
+    questionId: currentQuestion.id,
+    questionText: currentQuestion.question,
+    isCorrect
+  })
+});
