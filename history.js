@@ -1,4 +1,4 @@
-const userId = localStorage.getItem("userId");
+const userId = localStorage.getItem("quizUserId");
 const historyList = document.getElementById("historyList");
 
 async function loadHistory() {
