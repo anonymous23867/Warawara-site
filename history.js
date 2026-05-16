@@ -2,28 +2,39 @@ const userId = localStorage.getItem("quizUserId");
 const historyList = document.getElementById("historyList");
 
 async function loadHistory() {
-  if (!userId) {
-    historyList.innerHTML = "<p>履歴がありません。</p>";
-    return;
-  }
+  try {
+    if (!userId) {
+      historyList.innerHTML = "<p>ユーザーIDが見つかりません。</p>";
+      return;
+    }
 
-  const res = await fetch(`/api/get-history?userId=${encodeURIComponent(userId)}`);
-  const histories = await res.json();
+    const res = await fetch(`/api/get-history?userId=${encodeURIComponent(userId)}`);
 
-  if (!histories.length) {
-    historyList.innerHTML = "<p>まだ履歴がありません。</p>";
-    return;
-  }
+    if (!res.ok) {
+      historyList.innerHTML = `<p>履歴取得エラー：${res.status}</p>`;
+      return;
+    }
 
-  historyList.innerHTML = histories.map(item => `
-    <div class="history-item">
-      <div class="history-question">${escapeHtml(item.question_text)}</div>
-      <div class="history-result ${item.is_correct ? "correct" : "wrong"}">
-        ${item.is_correct ? "正解" : "不正解"}
+    const histories = await res.json();
+
+    if (!Array.isArray(histories) || histories.length === 0) {
+      historyList.innerHTML = "<p>まだ履歴がありません。</p>";
+      return;
+    }
+
+    historyList.innerHTML = histories.map(item => `
+      <div class="history-item">
+        <div class="history-question">${escapeHtml(item.question_text)}</div>
+        <div class="history-result ${item.is_correct ? "correct" : "wrong"}">
+          ${item.is_correct ? "正解" : "不正解"}
+        </div>
+        <div class="history-time">${item.answered_at}</div>
       </div>
-      <div class="history-time">${item.answered_at}</div>
-    </div>
-  `).join("");
+    `).join("");
+
+  } catch (error) {
+    historyList.innerHTML = `<p>読み込み失敗：${escapeHtml(error.message)}</p>`;
+  }
 }
 
 function escapeHtml(text) {
