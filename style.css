@@ -504,3 +504,20 @@ body {
   text-decoration: none;
   font-weight: bold;
 }
+
+.history-question {
+  color: #000;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+
+.history-item {
+  background: #fff;
+  color: #000;
+  border-radius: 12px;
+  padding: 14px;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}

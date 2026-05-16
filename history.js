@@ -1,7 +1,5 @@
-alert(localStorage.getItem("quizUserId"));
 const userId = localStorage.getItem("quizUserId");
 const historyList = document.getElementById("historyList");
-
 async function loadHistory() {
   try {
     if (!userId) {
