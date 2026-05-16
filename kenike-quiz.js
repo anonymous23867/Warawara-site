@@ -205,38 +205,55 @@ if (availableQuestions.length === 0) {
   preloadRandomQuestions(2);
 }
 
-function selectAnswer(selectedIndex, q) {
-  const buttons = document.querySelectorAll(".choice-btn");
+async function selectAnswer(selectedIndex, q) {
+  const buttons = document.querySelectorAll(".choice-btn");
 
-  answeredCount++;
+  answeredCount++;
 
-  if (selectedIndex === q.answer) {
-    correctCount++;
-  }
+  const isCorrect = selectedIndex === q.answer;
 
-  if (currentMode === "time") {
-    showQuestion();
-    return;
-  }
+  if (isCorrect) {
+    correctCount++;
+  }
 
-  buttons.forEach((btn, index) => {
-  btn.classList.add("disabled");
+  // 履歴保存
+  const userData = getUserData();
 
-  // 正解だけ緑
-  if (index === q.answer) {
-    btn.classList.add("correct");
-  }
+  fetch("/api/save-history", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      userId: userData.userId,
+      questionId: q.id || crypto.randomUUID(),
+      questionText: q.question,
+      isCorrect
+    })
+  });
 
-  // それ以外は全部赤
-  else {
-    btn.classList.add("wrong");
-  }
-});
+  if (currentMode === "time") {
+    showQuestion();
+    return;
+  }
 
-  setTimeout(() => {
-    showQuestion();
-  }, 900);
+  buttons.forEach((btn, index) => {
+    btn.classList.add("disabled");
 
+    // 正解だけ緑
+    if (index === q.answer) {
+      btn.classList.add("correct");
+    }
+
+    // それ以外は赤
+    else {
+      btn.classList.add("wrong");
+    }
+  });
+
+  setTimeout(() => {
+    showQuestion();
+  }, 900);
 }
 
 
@@ -428,13 +445,4 @@ function changePlayerName(newName) {
   );
 }
 
-await fetch("/api/save-history", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({
-    userId,
-    questionId: currentQuestion.id,
-    questionText: currentQuestion.question,
-    isCorrect
-  })
-});
+
