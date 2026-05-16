@@ -533,3 +533,24 @@ body {
   font-weight: bold;
   font-size: 16px;
 }
+
+/* 履歴ページだけスクロール可能にする */
+body:has(.history-page) {
+  display: block;
+  align-items: initial;
+  justify-content: initial;
+  overflow-y: auto;
+}
+
+body:has(.history-page) main {
+  height: auto;
+  min-height: 100vh;
+  display: block;
+  transform: none;
+  overflow: visible;
+}
+
+.history-page {
+  padding-top: 90px;
+  padding-bottom: 200px;
+}
