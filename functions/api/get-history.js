@@ -15,10 +15,11 @@ export async function onRequestGet(context) {
 
   const result = await env.DB.prepare(`
     SELECT
-      question_id,
-      question_text,
-      is_correct,
-      answered_at
+  question_id,
+  question_text,
+  answer_text,
+  is_correct,
+  answered_at
     FROM question_history
     WHERE user_id = ?
     ORDER BY answered_at DESC

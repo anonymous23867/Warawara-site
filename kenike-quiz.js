@@ -224,12 +224,13 @@ async function selectAnswer(selectedIndex, q) {
     headers: {
       "Content-Type": "application/json"
     },
-    body: JSON.stringify({
-      userId: userData.userId,
-      questionId: q.id || crypto.randomUUID(),
-      questionText: q.question,
-      isCorrect
-    })
+   body: JSON.stringify({
+  userId: userData.userId,
+  questionId: q.id || crypto.randomUUID(),
+  questionText: q.question,
+  answerText: q.choices[q.answer],
+  isCorrect
+})
   });
 
   if (currentMode === "time") {

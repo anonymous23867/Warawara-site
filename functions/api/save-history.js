@@ -2,7 +2,7 @@ export async function onRequestPost(context) {
   const { request, env } = context;
   const data = await request.json();
 
-  const { userId, questionId, questionText, isCorrect } = data;
+ const { userId, questionId, questionText, answerText, isCorrect } = data;
 
   if (!userId || !questionId || !questionText) {
     return Response.json({ error: "invalid data" }, { status: 400 });
@@ -10,19 +10,21 @@ export async function onRequestPost(context) {
 
   await env.DB.prepare(`
     INSERT INTO question_history (
-      user_id,
-      question_id,
-      question_text,
-      is_correct
-    )
-    VALUES (?, ?, ?, ?)
+  user_id,
+  question_id,
+  question_text,
+  answer_text,
+  is_correct
+)
+VALUES (?, ?, ?, ?, ?)
   `)
-    .bind(
-      userId,
-      questionId,
-      questionText,
-      isCorrect ? 1 : 0
-    )
+   .bind(
+  userId,
+  questionId,
+  questionText,
+  answerText,
+  isCorrect ? 1 : 0
+)
     .run();
 
   // 直近100問を超えた古い履歴を削除

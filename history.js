@@ -28,6 +28,9 @@ async function loadHistory() {
           ${item.is_correct ? "正解" : "不正解"}
         </div>
         <div class="history-time">${item.answered_at}</div>
+        <div class="history-answer">
+  答え：${escapeHtml(item.answer_text || "不明")}
+</div>
       </div>
     `).join("");
 
