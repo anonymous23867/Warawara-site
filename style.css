@@ -17,11 +17,6 @@ body {
   overscroll-behavior: none;
 }
 
-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 
 main {
   width: 100%;
