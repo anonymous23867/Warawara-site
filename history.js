@@ -35,11 +35,7 @@ async function loadHistory() {
     `).join("");
      const historyPage = document.getElementById("historyPage");
 
-setTimeout(() => {
-  if (historyPage) {
-    historyPage.scrollTop = 0;
-  }
-}, 50);
+
 
   } catch (error) {
     historyList.innerHTML = `<p>読み込み失敗：${escapeHtml(error.message)}</p>`;
