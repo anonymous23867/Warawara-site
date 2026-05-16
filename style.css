@@ -464,7 +464,6 @@ body {
 
 .history-page {
   padding: 20px;
-  padding-top: 80px;
   max-width: 700px;
   margin: 0 auto;
 }
@@ -537,4 +536,9 @@ body {
   text-decoration: none;
   font-weight: bold;
   font-size: 16px;
+}
+.history-page::before {
+  content: "";
+  display: block;
+  height: 220px;
 }
