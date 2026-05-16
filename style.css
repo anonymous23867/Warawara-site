@@ -462,35 +462,56 @@ body {
   width: 100%;
 }
 
-body.history-body {
-  margin: 0;
-  overflow: hidden !important;
-}
-
-.history-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 56px;
-  z-index: 1000;
-  background: #111;
-  padding: 14px 20px;
-  box-sizing: border-box;
-}
-
 .history-page {
-  position: fixed;
-  top: 56px;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  padding: 20px;
+  padding-bottom: 800px;
+  max-width: 700px;
+  margin: 0 auto;
+}
 
-  overflow-y: auto !important;
-  -webkit-overflow-scrolling: touch;
+.history-item {
+  background: #fff;
+  border-radius: 12px;
+  padding: 14px;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
 
-  padding: 20px 20px 120px;
-  box-sizing: border-box;
+.history-question {
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.history-result {
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.history-result.correct {
+  color: #008000;
+}
+
+.history-result.wrong {
+  color: #d00000;
+}
+
+.history-time {
+  font-size: 12px;
+  color: #777;
+}
+
+.back-link {
+  color: inherit;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.history-question {
+  color: #000;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  line-height: 1.5;
 }
 
 .history-item {
@@ -500,4 +521,20 @@ body.history-body {
   padding: 14px;
   margin-bottom: 12px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.history-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #111;
+  padding: 14px 20px;
+}
+
+.home-button {
+  display: inline-block;
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 16px;
 }
