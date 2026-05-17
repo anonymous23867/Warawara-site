@@ -1,3 +1,19 @@
+function getWeekStartJST() {
+  const now = new Date();
+
+  // JSTに変換
+  const jst = new Date(now.getTime() + 9 * 60 * 60 * 1000);
+
+  // 日曜始まり
+  const day = jst.getUTCDay();
+  jst.setUTCDate(jst.getUTCDate() - day);
+  jst.setUTCHours(0, 0, 0, 0);
+
+  // SQLite用にUTCへ戻す
+  const utc = new Date(jst.getTime() - 9 * 60 * 60 * 1000);
+  return utc.toISOString().slice(0, 19).replace("T", " ");
+}
+
 export async function onRequestPost(context) {
   const { request, env } = context;
 
@@ -17,13 +33,20 @@ export async function onRequestPost(context) {
     );
   }
 
+  const weekStart = getWeekStartJST();
+
   const existing = await env.DB.prepare(`
-    SELECT score
+    SELECT score, updated_at
     FROM rankings
     WHERE user_id = ?
   `).bind(userId).first();
 
-  if (existing && score <= existing.score) {
+  // 今週の記録があり、今回のスコアがそれ以下なら更新しない
+  if (
+    existing &&
+    existing.updated_at >= weekStart &&
+    score <= existing.score
+  ) {
     await env.DB.prepare(`
       UPDATE rankings
       SET last_seen_at = CURRENT_TIMESTAMP
@@ -80,6 +103,8 @@ export async function onRequestPost(context) {
 export async function onRequestGet(context) {
   const { env } = context;
 
+  const weekStart = getWeekStartJST();
+
   await env.DB.prepare(`
     DELETE FROM rankings
     WHERE last_seen_at IS NOT NULL
@@ -96,9 +121,12 @@ export async function onRequestGet(context) {
       accuracy
     FROM rankings
     WHERE is_banned = 0
+      AND updated_at >= ?
     ORDER BY score DESC
     LIMIT 100
-  `).all();
+  `)
+  .bind(weekStart)
+  .all();
 
   return Response.json(result.results);
 }

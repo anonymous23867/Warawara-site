@@ -554,3 +554,9 @@ body:has(.history-page) main {
   padding-top: 90px;
   padding-bottom: 200px;
 }
+.ranking-note {
+  text-align: center;
+  color: #ccc;
+  font-size: 14px;
+  margin: -4px 0 20px;
+}
