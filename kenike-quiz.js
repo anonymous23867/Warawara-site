@@ -106,15 +106,73 @@ function startIntro(mode) {
 
   
 
-
-
 function startQuiz(mode) {
- questions = shuffleArray(
-  quizData[mode].map(q => ({
-    ...q,
-    used: false
-  }))
-);
+
+  if (mode === "time") {
+    const targetTotal = 300;
+
+    const easyPool = shuffleArray([...easyQuestions]);
+    const normalPool = shuffleArray([...normalQuestions]);
+    const hardPool = shuffleArray([...hardQuestions]);
+
+    const targetEasy = Math.floor(targetTotal * 0.3);
+    const targetNormal = Math.floor(targetTotal * 0.4);
+    const targetHard = Math.floor(targetTotal * 0.3);
+
+    let selectedQuestions = [];
+
+    selectedQuestions.push(...easyPool.slice(0, targetEasy));
+    selectedQuestions.push(...normalPool.slice(0, targetNormal));
+    selectedQuestions.push(...hardPool.slice(0, targetHard));
+
+    // 重複チェック用
+    const usedSet = new Set(selectedQuestions);
+
+    // 足りない分は、まだ選ばれていないeasyで補充
+    if (selectedQuestions.length < targetTotal) {
+      const remainingEasy = easyPool.filter(q => !usedSet.has(q));
+
+      selectedQuestions.push(
+        ...remainingEasy.slice(0, targetTotal - selectedQuestions.length)
+      );
+
+      remainingEasy
+        .slice(0, targetTotal - selectedQuestions.length)
+        .forEach(q => usedSet.add(q));
+    }
+
+    // それでも足りない場合は、まだ選ばれていない全問題から補充
+    if (selectedQuestions.length < targetTotal) {
+      const allPool = shuffleArray([
+        ...easyQuestions,
+        ...normalQuestions,
+        ...hardQuestions
+      ]);
+
+      const remainingAll = allPool.filter(q => !usedSet.has(q));
+
+      selectedQuestions.push(
+        ...remainingAll.slice(0, targetTotal - selectedQuestions.length)
+      );
+    }
+
+    questions = shuffleArray(
+      selectedQuestions.map(q => ({
+        ...q,
+        used: false
+      }))
+    );
+
+  } else {
+
+    questions = shuffleArray(
+      quizData[mode].map(q => ({
+        ...q,
+        used: false
+      }))
+    );
+
+  }
 
   currentIndex = 0;
   correctCount = 0;
@@ -131,45 +189,63 @@ function startQuiz(mode) {
   }
 
   preloadRandomQuestions(10);
-　showQuestion();
+  showQuestion();
 }
-
+  
 function showQuestion() {
- const maxQuestions = Math.min(TOTAL_QUESTIONS, questions.length);
+  const maxQuestions = Math.min(TOTAL_QUESTIONS, questions.length);
 
-if (currentMode !== "time" && answeredCount >= maxQuestions) {
-  showResult();
-  return;
-}
+  if (currentMode !== "time" && answeredCount >= maxQuestions) {
+    showResult();
+    return;
+  }
 
-if (currentMode === "time" && answeredCount >= questions.length) {
-  showResult();
-  return;
-}
+  if (currentMode === "time" && answeredCount >= questions.length) {
+    showResult();
+    return;
+  }
 
-  // 読み込み済み or 画像なし問題だけ抽出
   const remainingQuestions = questions.filter(q => !q.used);
 
-const availableQuestions = remainingQuestions.filter(q => {
-  return !q.media || imageCache.has(q.media);
-});
+  if (remainingQuestions.length === 0) {
+    showResult();
+    return;
+  }
 
-// もう出題できる問題自体がない
-if (remainingQuestions.length === 0) {
-  showResult();
-  return;
-}
+  // 画像なし問題
+  const noMediaQuestions = remainingQuestions.filter(q => !q.media);
 
-// まだ読み込み待ち
-if (availableQuestions.length === 0) {
-  setTimeout(showQuestion, 100);
-  return;
-}
+  // プリロード済みの画像あり問題
+  const preloadedMediaQuestions = remainingQuestions.filter(q => {
+    return q.media && imageCache.has(q.media);
+  });
 
-  // ランダム出題
-  const q = availableQuestions[
-    Math.floor(Math.random() * availableQuestions.length)
-  ];
+  let q = null;
+
+  // 5:5で抽選
+  const usePreloaded = Math.random() < 0.5;
+
+  if (usePreloaded && preloadedMediaQuestions.length > 0) {
+    q = preloadedMediaQuestions[
+      Math.floor(Math.random() * preloadedMediaQuestions.length)
+    ];
+  } else if (!usePreloaded && noMediaQuestions.length > 0) {
+    q = noMediaQuestions[
+      Math.floor(Math.random() * noMediaQuestions.length)
+    ];
+  } else if (preloadedMediaQuestions.length > 0) {
+    q = preloadedMediaQuestions[
+      Math.floor(Math.random() * preloadedMediaQuestions.length)
+    ];
+  } else if (noMediaQuestions.length > 0) {
+    q = noMediaQuestions[
+      Math.floor(Math.random() * noMediaQuestions.length)
+    ];
+  } else {
+    // 画像あり問題がまだ読み込み中なら待つ
+    setTimeout(showQuestion, 100);
+    return;
+  }
 
   q.used = true;
 
