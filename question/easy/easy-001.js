@@ -230,6 +230,6 @@ window.quizDataParts.easy.push(
     {
       question: "検索すると、昆虫を1年間尿入りのボトルに漬けた画像を貼っていくスレッドがヒットする言葉は？",
       choices: ["1年間漬けた", "カニ　入った", "pickel", "昆虫　古漬け"],
-      answer: 1
+      answer: 0
     },
 );
